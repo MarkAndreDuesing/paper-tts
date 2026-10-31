@@ -1,0 +1,6 @@
+# Python packages for the TTS tools (versions that were used; newer ones likely work)
+piper-tts==1.8.0
+onnxruntime==1.29.0
+numpy==2.5.3
+# System tools (install separately): ffmpeg (6.1), poppler-utils (pdftotext, pdfinfo)
+# Tested with Python 3.13

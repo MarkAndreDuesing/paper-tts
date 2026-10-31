@@ -1,0 +1,34 @@
+voice_no,model,speaker,track,start,end,first_words,chars
+2,en_GB-alba-medium,,hermann-01-survey,0.0,141.4,"Hermann, Winter and Siegmund, twenty twenty.",2506
+4,en_GB-jenny_dioco-medium,,hermann-01-survey,141.4,287.8,"Also, Lung and colleagues describe their difficulties in",2620
+5,en_GB-northern_english_male-medium,,hermann-01-survey,287.8,425.8,The standard of quality widely varies between different,2509
+20,en_GB-semaine-medium,spike,hermann-01-survey,425.8,571.5,"First, we provide an overview of the current",2609
+24,en_GB-vctk-medium,p226,hermann-01-survey,571.5,628.3,On page 476: reviewers expect different quality criteria,884
+24,en_GB-vctk-medium,p226,hermann-02-pre-study,0.0,107.5,"Track two: section three, expectations in the A",1955
+27,en_GB-vctk-medium,p229,hermann-02-pre-study,107.5,244.4,"Footnote 5, on page 471, is important for",2607
+37,en_GB-vctk-medium,p240,hermann-02-pre-study,244.4,383.8,"Across all analysed calls, the most frequently named",2514
+40,en_GB-vctk-medium,p244,hermann-02-pre-study,383.8,528.4,An astonishing number of 14 calls do not,2547
+42,en_GB-vctk-medium,p246,hermann-02-pre-study,528.4,601.0,"Interestingly, we found only two calls that explicitly",1290
+42,en_GB-vctk-medium,p246,hermann-03-method,0.0,72.2,"Track three: the survey method, section four point",1226
+43,en_GB-vctk-medium,p247,hermann-03-method,72.2,220.3,This helps us to understand the experience of,2625
+45,en_GB-vctk-medium,p249,hermann-03-method,220.3,366.0,"Figure 2, also on page 473, is a",2576
+48,en_GB-vctk-medium,p252,hermann-03-method,366.0,461.9,"Consequently, we expect the central conclusions not to",1752
+48,en_GB-vctk-medium,p252,hermann-04-results,0.0,54.2,"Track four: survey results, sections four point two",867
+51,en_GB-vctk-medium,p255,hermann-04-results,54.2,202.5,"However, as we found in section three point",2608
+52,en_GB-vctk-medium,p256,hermann-04-results,202.5,346.6,"Key finding, page 474: while the direct purpose",2606
+56,en_GB-vctk-medium,p260,hermann-04-results,346.6,491.6,"If the expectations differ for these two perspectives,",2592
+61,en_GB-vctk-medium,p265,hermann-04-results,491.6,637.0,"Hence, we subsumed the mentions of reproducibility under",2583
+63,en_GB-vctk-medium,p267,hermann-04-results,637.0,780.5,"Fourth, I try to create a problem, such",2575
+65,en_GB-vctk-medium,p269,hermann-04-results,780.5,919.7,"However, we see a moderation in the amount",2532
+72,en_GB-vctk-medium,p276,hermann-04-results,919.7,1059.4,While the first perspective is that the availability,2493
+74,en_GB-vctk-medium,p278,hermann-04-results,1059.4,1202.5,"This indicates that, whatever criteria are applied, the",2559
+75,en_GB-vctk-medium,p279,hermann-04-results,1202.5,1346.7,Data.,2532
+76,en_GB-vctk-medium,p280,hermann-04-results,1346.7,1487.5,"However, this satisfaction is not clearly attributed to",2567
+78,en_GB-vctk-medium,p282,hermann-04-results,1487.5,1572.4,"If regarded separately by artifact type, we find",1555
+78,en_GB-vctk-medium,p282,hermann-05-further-insights,0.0,60.5,"Track five: section five, further insights, pages 477",1022
+80,en_GB-vctk-medium,p284,hermann-05-further-insights,60.5,202.2,"However, when we asked for satisfaction with the",2532
+88,en_GB-vctk-medium,p298,hermann-05-further-insights,202.2,343.2,"However, a kicking-the-tires phase or other interactive processes",2518
+94,en_GB-vctk-medium,p313,hermann-05-further-insights,343.2,370.7,"Respondent 79, one P L committee: ""The evaluations",461
+94,en_GB-vctk-medium,p313,hermann-06-background-and-implications,0.0,117.6,Track six.,2124
+101,en_GB-vctk-medium,p336,hermann-06-background-and-implications,117.6,261.7,Robles reported very scarce availability of artifacts in,2601
+104,en_GB-vctk-medium,p347,hermann-06-background-and-implications,261.7,400.4,A committee might be instated for each community,2532

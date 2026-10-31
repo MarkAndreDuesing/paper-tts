@@ -1,0 +1,228 @@
+<title>Voice Shortlist Sheet</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600&family=Public+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: sticky listening bar on top, one dense rating table below, grouped by track */
+:root{
+  --bg:#f6f7f9; --panel:#ffffff; --fg:#1d232b; --muted:#5d6672; --line:#dde1e7;
+  --accent:#2f5d8a; --accent-soft:#e3ecf5; --now:#fff4cf;
+  --bad:#b43c3c; --bad-soft:#f8e1e1; --mid:#a86a12; --mid-soft:#f7ead5; --good:#2c7a4b; --good-soft:#dcf0e3;
+  --f-display:"Source Serif 4",Georgia,serif; --f-body:"Public Sans",system-ui,sans-serif; --f-mono:"JetBrains Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#13171c; --panel:#1b2027; --fg:#e4e8ee; --muted:#9aa4b1; --line:#2c333d;
+  --accent:#7fb0e0; --accent-soft:#1f3042; --now:#3a3420;
+  --bad:#ec8a8a; --bad-soft:#3d2224; --mid:#e2b062; --mid-soft:#3a2f1c; --good:#7fcf9d; --good-soft:#1d3527; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#13171c; --panel:#1b2027; --fg:#e4e8ee; --muted:#9aa4b1; --line:#2c333d;
+  --accent:#7fb0e0; --accent-soft:#1f3042; --now:#3a3420;
+  --bad:#ec8a8a; --bad-soft:#3d2224; --mid:#e2b062; --mid-soft:#3a2f1c; --good:#7fcf9d; --good-soft:#1d3527; color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font:15px/1.5 var(--f-body)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--panel)}
+.wrap{max-width:1100px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header{padding-block:24px 8px}
+h1{font:600 1.7rem/1.2 var(--f-display);margin:0 0 4px;text-wrap:balance}
+.sub{color:var(--muted);margin:0;max-width:68ch}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--panel);border-bottom:1px solid var(--line);box-shadow:0 2px 8px rgb(0 0 0 / .05)}
+.bar .wrap{display:flex;flex-direction:column;gap:10px;padding-block:12px}
+.tabs{display:flex;flex-wrap:wrap;gap:6px}
+.tab{font:500 .85rem var(--f-body);border:1px solid var(--line);background:var(--bg);color:var(--fg);padding:6px 10px;border-radius:6px;cursor:pointer}
+.tab[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--panel)}
+audio{width:100%}
+.speed{display:flex;align-items:center;gap:10px;font-size:.85rem;flex-wrap:wrap}
+.speed input{flex:1 1 160px;max-width:320px;accent-color:var(--accent)}
+.speed output{font-family:var(--f-mono);min-width:4.5ch}
+.now{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;font-size:.9rem}
+.now b{font-family:var(--f-mono);font-weight:500}
+.now .lbl{color:var(--muted);font-size:.75rem;letter-spacing:.06em;text-transform:uppercase}
+.rate{display:inline-flex;gap:4px}
+.rate button{font:500 .8rem var(--f-body);border:1px solid var(--line);background:var(--panel);color:var(--fg);padding:4px 9px;border-radius:5px;cursor:pointer;min-width:62px}
+.rate button[data-v="bad"][aria-pressed="true"]{background:var(--bad-soft);border-color:var(--bad);color:var(--bad)}
+.rate button[data-v="medium"][aria-pressed="true"]{background:var(--mid-soft);border-color:var(--mid);color:var(--mid)}
+.rate button[data-v="good"][aria-pressed="true"]{background:var(--good-soft);border-color:var(--good);color:var(--good)}
+button:focus-visible,.tab:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.tools{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;padding-block:14px;font-size:.88rem}
+.counts{display:flex;gap:12px;flex-wrap:wrap;font-variant-numeric:tabular-nums}
+.chip{padding:2px 8px;border-radius:999px;font-size:.8rem;font-weight:600}
+.chip.good{background:var(--good-soft);color:var(--good)} .chip.medium{background:var(--mid-soft);color:var(--mid)} .chip.bad{background:var(--bad-soft);color:var(--bad)} .chip.none{background:var(--accent-soft);color:var(--accent)}
+select,label{font:inherit;color:var(--fg)}
+select{background:var(--panel);border:1px solid var(--line);border-radius:5px;padding:3px 6px}
+.tablebox{overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:8px}
+table{border-collapse:collapse;width:100%;min-width:760px;font-size:.88rem}
+th,td{padding:7px 10px;text-align:left;border-bottom:1px solid var(--line);vertical-align:middle}
+th{font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600;background:var(--panel)}
+tr.group td{background:var(--accent-soft);color:var(--accent);font-weight:600;font-size:.8rem}
+tr.playing td{background:var(--now)}
+.num,.time{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.time button{font:inherit;color:var(--accent);background:none;border:0;padding:0;cursor:pointer;text-decoration:underline;text-underline-offset:2px}
+.voice{font-family:var(--f-mono);font-size:.82rem}
+.words{color:var(--muted);max-width:28ch}
+.export{margin-block:24px 40px;display:flex;flex-direction:column;gap:8px}
+.export h2{font:600 1.15rem var(--f-display);margin:0}
+.export .row{display:flex;gap:8px;flex-wrap:wrap}
+.export button{font:500 .85rem var(--f-body);border:1px solid var(--accent);background:var(--accent);color:var(--panel);padding:6px 12px;border-radius:6px;cursor:pointer}
+.export button.ghost{background:var(--panel);color:var(--accent)}
+textarea{width:100%;min-height:160px;box-sizing:border-box;font:.8rem/1.45 var(--f-mono);background:var(--panel);color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:10px}
+.hint{color:var(--muted);font-size:.8rem}
+kbd{font-family:var(--f-mono);font-size:.75rem;border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;padding:0 4px;background:var(--bg)}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style>
+
+<header class="wrap">
+  <h1>Voice Shortlist Sheet</h1>
+  <p class="sub">Collberg &amp; Proebsting (2016), read by 110 British-English Piper voices in turn, about 14 seconds each. Rate each voice as you listen; the row for the current voice is highlighted. All voices are calibrated to the same speaking rate; the speed slider changes the pace in 0.05 steps. Keys <kbd>1</kbd> bad, <kbd>2</kbd> medium, <kbd>3</kbd> good rate the voice that is playing.</p>
+</header>
+
+<div class="bar">
+  <div class="wrap">
+    <div class="tabs" id="tabs" role="group" aria-label="Track"></div>
+    <audio id="player" controls preload="metadata"></audio>
+    <div class="speed">
+      <label for="speed">Speed</label>
+      <input type="range" id="speed" min="0.5" max="2" step="0.05" value="1">
+      <output id="speedOut" for="speed">1.00×</output>
+      <button type="button" id="speedReset" class="tab">Reset</button>
+    </div>
+    <div class="now" aria-live="polite">
+      <span class="lbl">Now</span>
+      <span id="nowText">Press play to start</span>
+      <span class="rate" id="nowRate"></span>
+    </div>
+  </div>
+</div>
+
+<main class="wrap">
+  <div class="tools">
+    <div class="counts" id="counts"></div>
+    <label for="filter">Show <select id="filter">
+      <option value="all">all voices</option><option value="none">unrated</option>
+      <option value="good">good</option><option value="medium">medium</option><option value="bad">bad</option>
+    </select></label>
+    <label><input type="checkbox" id="follow" checked> Scroll with the audio</label>
+  </div>
+
+  <div class="tablebox">
+    <table>
+      <thead><tr><th>#</th><th>Voice</th><th>Sex</th><th>Accent (approx.)</th><th>Start – end</th><th>First words</th><th>Rating</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+
+  <section class="export">
+    <h2>Export ratings</h2>
+    <p class="hint">Ratings stay in this browser only. Copy them and paste them into the chat, or save them in the repo, to build the shortlist for Paper 2.</p>
+    <div class="row">
+      <button id="copyMd">Copy as Markdown</button>
+      <button id="copyCsv" class="ghost">Copy as CSV</button>
+      <span id="copyMsg" class="hint" aria-live="polite"></span>
+    </div>
+    <textarea id="out" readonly aria-label="Exported ratings"></textarea>
+  </section>
+</main>
+
+<script>
+const TRACKS=[
+ {stem:"collberg-01-survey",label:"01 Survey",pages:"pp. 62–63, 69"},
+ {stem:"collberg-02-introduction-and-study",label:"02 Introduction & study",pages:"pp. 62–65"},
+ {stem:"collberg-03-results",label:"03 Results",pages:"pp. 65–68"},
+ {stem:"collberg-04-recommendations",label:"04 Recommendations",pages:"pp. 68–69"}];
+// [voice no, model, speaker, sex, accent, track, start, end, first words]
+const SEG=[[1,"alan-medium","","male","Southern English","collberg-01-survey",0.0,18.7,"Collberg and Proebsting, twenty sixteen."],[2,"alba-medium","","female","Scottish-leaning","collberg-01-survey",18.7,41.0,"Standfirst."],[3,"cori-high","","female","Southern English","collberg-01-survey",41.0,59.0,"Second: sharing research software presents many challenges, so"],[4,"jenny_dioco-medium","","female","Southern English","collberg-01-survey",59.0,82.1,"Skipping ahead to the discussion section on page"],[5,"northern_english_male-medium","","male","Northern English","collberg-01-survey",82.1,90.4,"When we do not produce solid, ready-to-share artifacts"],[6,"southern_english_female-low","","female","Southern English","collberg-01-survey",90.4,106.2,"Nosek wrote: because of strong incentives for innovation"],[7,"aru-medium","01","unknown","British (mixed)","collberg-01-survey",106.2,119.4,"The real solution to the problem of researchers"],[8,"aru-medium","02","unknown","British (mixed)","collberg-01-survey",119.4,137.4,"Unfortunately, in this regard we remain pessimistic, not"],[9,"aru-medium","03","unknown","British (mixed)","collberg-01-survey",137.4,148.4,"With required sharing contracts, authors, knowing reviewers are"],[10,"aru-medium","04","unknown","British (mixed)","collberg-01-survey",148.4,161.6,"Adjusting funding agency regulations to encourage engineering for"],[10,"aru-medium","04","unknown","British (mixed)","collberg-02-introduction-and-study",0.0,5.8,"Track two: introduction, background and study process, pages"],[11,"aru-medium","05","unknown","British (mixed)","collberg-02-introduction-and-study",5.8,25.3,"In twenty twelve, when reading a paper from"],[12,"aru-medium","06","unknown","British (mixed)","collberg-02-introduction-and-study",25.3,37.7,"We received no response."],[13,"aru-medium","07","unknown","British (mixed)","collberg-02-introduction-and-study",37.7,51.6,"We asked the authors for clarification and received"],[14,"aru-medium","08","unknown","British (mixed)","collberg-02-introduction-and-study",51.6,60.2,"The university's legal department responded with: we have"],[15,"aru-medium","09","unknown","British (mixed)","collberg-02-introduction-and-study",60.2,72.3,"Expecting a research project of this magnitude to"],[16,"aru-medium","10","unknown","British (mixed)","collberg-02-introduction-and-study",72.3,88.1,"The legal department first responded that the records"],[17,"aru-medium","11","unknown","British (mixed)","collberg-02-introduction-and-study",88.1,106.0,"We declined the offer."],[18,"aru-medium","12","unknown","British (mixed)","collberg-02-introduction-and-study",106.0,118.5,"In the end, we concluded that, without assistance"],[19,"semaine-medium","prudence","female","British (expressive)","collberg-02-introduction-and-study",118.5,135.5,"Reproducibility, repeatability, benefaction."],[20,"semaine-medium","spike","male","British (expressive)","collberg-02-introduction-and-study",135.5,151.5,"Sharing for repeatability is essential to ensure colleagues"],[21,"semaine-medium","obadiah","male","British (expressive)","collberg-02-introduction-and-study",151.5,170.0,"Unlike repeatability, reproducibility does not necessarily require access"],[22,"semaine-medium","poppy","female","British (expressive)","collberg-02-introduction-and-study",170.0,191.5,"Repeatability and reproducibility are cornerstones of the scientific"],[23,"vctk-medium","p225","female","English","collberg-02-introduction-and-study",191.5,202.4,"We also make recommendations as to how to"],[24,"vctk-medium","p226","male","English","collberg-02-introduction-and-study",202.4,217.8,"Correct versions of source code, input data, operating"],[25,"vctk-medium","p227","male","English","collberg-02-introduction-and-study",217.8,236.1,"Here, we use the most liberal definition of"],[26,"vctk-medium","p228","female","English","collberg-02-introduction-and-study",236.1,250.8,"We examined the paper itself, performed web searches,"],[27,"vctk-medium","p229","female","English","collberg-02-introduction-and-study",250.8,261.4,"Recommendations."],[28,"vctk-medium","p230","female","English","collberg-02-introduction-and-study",261.4,279.5,"Our recommendations are more modest."],[29,"vctk-medium","p231","female","English","collberg-02-introduction-and-study",279.5,288.8,"This information should be provided by the authors"],[30,"vctk-medium","p232","male","English","collberg-02-introduction-and-study",288.8,299.8,"To this end, we make a recommendation for"],[31,"vctk-medium","p233","female","English","collberg-02-introduction-and-study",299.8,322.5,"In short, papers are sorted into groups: excluded"],[32,"vctk-medium","p234","female","Scottish","collberg-02-introduction-and-study",322.5,325.3,"Please see the PDF for the exact labels."],[33,"vctk-medium","p236","female","English","collberg-02-introduction-and-study",325.3,341.3,"Background."],[34,"vctk-medium","p237","male","Scottish","collberg-02-introduction-and-study",341.3,352.7,"Vandewalle and colleagues examined the 134 papers published"],[35,"vctk-medium","p238","female","Northern Irish","collberg-02-introduction-and-study",352.7,371.1,"Stodden reported that while 74 per cent of"],[36,"vctk-medium","p239","female","English","collberg-02-introduction-and-study",371.1,382.8,"The most common reasons for not sharing code"],[37,"vctk-medium","p240","female","English","collberg-02-introduction-and-study",382.8,392.9,"Stodden has since proposed the Open Research License,"],[38,"vctk-medium","p241","male","Scottish","collberg-02-introduction-and-study",392.9,411.2,"Public repositories can help authors make their research"],[39,"vctk-medium","p243","male","English","collberg-02-introduction-and-study",411.2,434.7,"One attractive proposition for researchers to ensure repeatability"],[40,"vctk-medium","p244","female","English","collberg-02-introduction-and-study",434.7,441.4,"From twenty eleven until January twenty sixteen, 19"],[41,"vctk-medium","p245","male","Irish","collberg-02-introduction-and-study",441.4,460.9,"Submitting an artifact is voluntary, and the outcome"],[42,"vctk-medium","p246","male","Scottish","collberg-02-introduction-and-study",460.9,469.6,"For the twenty fifteen edition, this improved to"],[43,"vctk-medium","p247","male","Scottish","collberg-02-introduction-and-study",469.6,481.3,"Study process."],[44,"vctk-medium","p248","female","Indian","collberg-02-introduction-and-study",481.3,504.3,"The conferences were ASPLOS, CCS, OOPSLA, OSDI, PLDI,"],[45,"vctk-medium","p249","female","Scottish","collberg-02-introduction-and-study",504.3,515.5,"For the remaining papers we searched for links"],[46,"vctk-medium","p250","female","English","collberg-02-introduction-and-study",515.5,527.9,"If still unsuccessful, we sent an email request"],[47,"vctk-medium","p251","male","Indian","collberg-02-introduction-and-study",527.9,545.1,"In the following cases we marked a paper"],[48,"vctk-medium","p252","male","Scottish","collberg-02-introduction-and-study",545.1,547.3,"We next made two attempts to build each"],[49,"vctk-medium","p253","female","Welsh","collberg-02-introduction-and-study",547.3,560.7,"This often required editing makefiles and finding and"],[50,"vctk-medium","p254","male","English","collberg-02-introduction-and-study",560.7,579.0,"A footnote adds that a group of independent"],[51,"vctk-medium","p255","male","Scottish","collberg-02-introduction-and-study",579.0,588.0,"We also asked the authors if the version"],[52,"vctk-medium","p256","male","English","collberg-02-introduction-and-study",588.0,596.8,"The survey also let the authors comment on"],[53,"vctk-medium","p257","female","English","collberg-03-results",0.0,14.4,"Track three: study results and reasons for not"],[54,"vctk-medium","p258","male","English","collberg-03-results",14.4,24.1,"Weak repeatability B also counts papers whose code"],[55,"vctk-medium","p259","male","English","collberg-03-results",24.1,45.8,"The formulas are on page 65."],[56,"vctk-medium","p260","male","Scottish","collberg-03-results",45.8,57.2,"The latter turns out to be quite common."],[57,"vctk-medium","p261","female","Northern Irish","collberg-03-results",57.2,63.8,"Weak repeatability C measures the extent to which"],[58,"vctk-medium","p262","female","Scottish","collberg-03-results",63.8,83.6,"This model approximates a situation where ample time"],[59,"vctk-medium","p263","male","Scottish","collberg-03-results",83.6,92.9,"Here, C is limited by the response rate"],[60,"vctk-medium","p264","female","Scottish","collberg-03-results",92.9,107.1,"In short: 30 were excluded for special hardware,"],[61,"vctk-medium","p265","female","Scottish","collberg-03-results",107.1,125.4,"146 authors said code could not be provided,"],[62,"vctk-medium","p266","female","Irish","collberg-03-results",125.4,140.1,"Table 2 on page 67 breaks these numbers"],[63,"vctk-medium","p267","female","English","collberg-03-results",140.1,161.7,"Academic papers reach 62 per cent, joint papers"],[64,"vctk-medium","p268","female","English","collberg-03-results",161.7,169.6,"However, we did not find significant differences in"],[65,"vctk-medium","p269","female","English","collberg-03-results",169.6,186.3,"A footnote adds that the authors only tracked"],[66,"vctk-medium","p270","male","English","collberg-03-results",186.3,191.0,"The reason joint papers also have a lower"],[67,"vctk-medium","p271","male","Scottish","collberg-03-results",191.0,209.7,"For instance, the industrial partner might have imposed"],[68,"vctk-medium","p272","male","Scottish","collberg-03-results",209.7,218.0,"To see how common this is, in our"],[69,"vctk-medium","p273","male","English","collberg-03-results",218.0,231.9,"It was encouraging to see that out of"],[70,"vctk-medium","p274","male","English","collberg-03-results",231.9,248.1,"Why is code not shared?"],[71,"vctk-medium","p275","male","Scottish","collberg-03-results",248.1,261.7,"In order for research to be truly repeatable,"],[72,"vctk-medium","p276","female","English","collberg-03-results",261.7,272.0,"Authors often told us once their code was"],[73,"vctk-medium","p277","female","English","collberg-03-results",272.0,282.2,"We are actively working on a number of"],[74,"vctk-medium","p278","male","English","collberg-03-results",282.2,293.1,"It will never be possible for a reviewer"],[75,"vctk-medium","p279","male","English","collberg-03-results",293.1,309.7,"The code was never intended to be released,"],[76,"vctk-medium","p280","unknown","unknown","collberg-03-results",309.7,319.6,"Lack of proper backup procedures was also a"],[77,"vctk-medium","p281","male","Scottish","collberg-03-results",319.6,333.4,"My entire implementation for this paper was not"],[78,"vctk-medium","p282","female","English","collberg-03-results",333.4,338.2,"This author added this helpful suggestion: your best"],[79,"vctk-medium","p283","female","Irish","collberg-03-results",338.2,354.1,"Even academic researchers had licensing issues, with one"],[80,"vctk-medium","p284","male","Scottish","collberg-03-results",354.1,364.5,"If you're interested in obtaining the code, we"],[81,"vctk-medium","p285","male","Scottish","collberg-03-results",364.5,375.1,"Some systems were built on top of other"],[82,"vctk-medium","p286","male","English","collberg-03-results",375.1,388.3,"Sorry for this."],[83,"vctk-medium","p287","male","English","collberg-03-results",388.3,401.9,"Few people would manage to get it to"],[84,"vctk-medium","p288","female","Irish","collberg-03-results",401.9,408.7,"Based on earlier bad experience, we would like"],[85,"vctk-medium","p292","male","Northern Irish","collberg-03-results",408.7,419.6,"Producing artifacts solid enough to be shared is"],[86,"vctk-medium","p293","female","Northern Irish","collberg-03-results",419.6,431.4,"In the past, when we attempted to share"],[87,"vctk-medium","p295","female","Irish","collberg-03-results",431.4,444.3,"Unlike researchers in other fields, computer security researchers"],[88,"vctk-medium","p298","male","Irish","collberg-03-results",444.3,456.9,"Some authors used unusual languages and tools that"],[89,"vctk-medium","p302","male","Canadian","collberg-03-results",456.9,461.4,"End of track three."],[89,"vctk-medium","p302","male","Canadian","collberg-04-recommendations",0.0,14.8,"Track four: recommendations and sharing contracts, pages 68"],[90,"vctk-medium","p303","female","Canadian","collberg-04-recommendations",14.8,22.6,"Unfortunately, based on our study, it is unrealistic"],[91,"vctk-medium","p304","male","Northern Irish","collberg-04-recommendations",22.6,36.4,"There are several reasons for this: the code"],[92,"vctk-medium","p307","female","Canadian","collberg-04-recommendations",36.4,58.3,"We thus make a much more modest proposal"],[93,"vctk-medium","p312","female","Canadian","collberg-04-recommendations",58.3,69.7,"In the same way funding agencies conduct financial"],[94,"vctk-medium","p313","female","Irish","collberg-04-recommendations",69.7,79.5,"Require sharing contract."],[95,"vctk-medium","p314","female","South African","collberg-04-recommendations",79.5,92.1,"While the first point will have the effect"],[96,"vctk-medium","p316","male","Canadian","collberg-04-recommendations",92.1,109.1,"Here, we expand on the second point."],[97,"vctk-medium","p317","female","Canadian","collberg-04-recommendations",109.1,121.3,"The contract commits the author to making available"],[98,"vctk-medium","p323","female","South African","collberg-04-recommendations",121.3,136.8,"Table 3 lists the data that should be"],[99,"vctk-medium","p326","male","Australian","collberg-04-recommendations",136.8,156.1,"Table 3, on page 68, groups this data"],[100,"vctk-medium","p335","female","New Zealand","collberg-04-recommendations",156.1,164.4,"Support: the kinds of support, such as resolving"],[101,"vctk-medium","p336","female","South African","collberg-04-recommendations",164.4,179.5,"Please see the PDF for the full table."],[102,"vctk-medium","p340","female","Irish","collberg-04-recommendations",179.5,185.6,"Code accessed as a service could be running"],[103,"vctk-medium","p343","female","Canadian","collberg-04-recommendations",185.6,199.0,"We include an optional comment field to handle"],[104,"vctk-medium","p347","male","South African","collberg-04-recommendations",199.0,213.0,"A licence, on the other hand, describes the"],[105,"vctk-medium","p351","female","Northern Irish","collberg-04-recommendations",213.0,227.8,"For example, if a licence prohibits reverse engineering,"],[106,"vctk-medium","p363","male","Canadian","collberg-04-recommendations",227.8,246.6,"The contract must also specify the level of"],[107,"vctk-medium","p364","male","Irish","collberg-04-recommendations",246.6,255.5,"Example of a sharing contract."],[108,"vctk-medium","p374","male","Australian","collberg-04-recommendations",255.5,272.3,"For illustrative purposes, the authors give an example"],[109,"vctk-medium","p376","male","Indian","collberg-04-recommendations",272.3,280.3,"In this research, we must sanitise email exchanges"],[110,"vctk-medium","s5","unknown","unknown","collberg-04-recommendations",280.3,292.8,"The discussion section on page 69 was already"]];
+const KEY="voice-ratings-collberg-v1";
+let ratings={};
+try{ratings=JSON.parse(localStorage.getItem(KEY)||"{}")}catch(e){ratings={}}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(ratings))}catch(e){}};
+
+const player=document.getElementById("player"),rowsEl=document.getElementById("rows");
+let curTrack=0,curSeg=-1;
+const fmt=s=>{s=Math.max(0,s);const m=Math.floor(s/60),x=Math.floor(s%60);return m+":"+String(x).padStart(2,"0")};
+const vname=s=>s[1]+(s[2]?" · "+s[2]:"");
+
+function rateButtons(no){
+  const box=document.createElement("span");box.className="rate";
+  for(const v of ["bad","medium","good"]){
+    const b=document.createElement("button");b.type="button";b.dataset.v=v;b.dataset.no=no;
+    b.textContent=v[0].toUpperCase()+v.slice(1);b.setAttribute("aria-pressed",ratings[no]===v);
+    b.setAttribute("aria-label",`Rate voice ${no} ${v}`);
+    b.onclick=()=>setRating(no,ratings[no]===v?null:v);box.append(b)}
+  return box}
+
+function setRating(no,v){
+  if(v)ratings[no]=v;else delete ratings[no];save();
+  document.querySelectorAll(`.rate button[data-no="${no}"]`).forEach(b=>b.setAttribute("aria-pressed",ratings[no]===b.dataset.v));
+  counts();applyFilter();exportText()}
+
+function build(){
+  TRACKS.forEach((t,ti)=>{
+    const g=document.createElement("tr");g.className="group";g.dataset.track=ti;
+    g.innerHTML=`<td colspan="7">Track ${t.label} · ${t.pages}</td>`;rowsEl.append(g);
+    SEG.forEach((s,i)=>{if(s[5]!==t.stem)return;
+      const tr=document.createElement("tr");tr.id="seg"+i;tr.dataset.no=s[0];tr.dataset.track=ti;
+      const time=document.createElement("button");time.type="button";time.textContent=`${fmt(s[6])} – ${fmt(s[7])}`;
+      time.onclick=()=>seek(ti,s[6]+0.05,true);
+      tr.innerHTML=`<td class="num">${s[0]}</td><td class="voice">${vname(s)}</td><td>${s[3]}</td><td>${s[4]}</td><td class="time"></td><td class="words"></td><td></td>`;
+      tr.children[4].append(time);tr.children[5].textContent=s[8]+" …";tr.children[6].append(rateButtons(s[0]));
+      rowsEl.append(tr)})})}
+
+function tabs(){
+  const el=document.getElementById("tabs");
+  TRACKS.forEach((t,ti)=>{const b=document.createElement("button");b.className="tab";b.type="button";b.textContent=t.label;
+    b.onclick=()=>seek(ti,0,false);el.append(b)});markTab()}
+function markTab(){[...document.querySelectorAll(".tab")].forEach((b,i)=>b.setAttribute("aria-pressed",i===curTrack))}
+
+function load(ti){curTrack=ti;player.src=TRACKS[ti].stem+".mp3";markTab()}
+function seek(ti,t,play){
+  const go=()=>{player.currentTime=t;if(play)player.play().catch(()=>{})};
+  if(ti!==curTrack||!player.src){load(ti);player.addEventListener("loadedmetadata",go,{once:true})}else go()}
+
+player.addEventListener("timeupdate",()=>{
+  const t=player.currentTime,stem=TRACKS[curTrack].stem;
+  const i=SEG.findIndex(s=>s[5]===stem&&t>=s[6]&&t<s[7]);
+  if(i===curSeg)return;
+  document.getElementById("seg"+curSeg)?.classList.remove("playing");curSeg=i;
+  const nowText=document.getElementById("nowText"),nowRate=document.getElementById("nowRate");nowRate.replaceChildren();
+  if(i<0){nowText.textContent="Between voices";return}
+  const s=SEG[i],row=document.getElementById("seg"+i);row.classList.add("playing");
+  nowText.innerHTML=`<b>#${s[0]}</b> ${vname(s)} · ${s[3]} · ${s[4]}`;nowRate.append(rateButtons(s[0]));
+  if(document.getElementById("follow").checked&&!row.hidden)row.scrollIntoView({block:"center",behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"})});
+player.addEventListener("ended",()=>{if(curTrack<TRACKS.length-1)seek(curTrack+1,0,true)});
+
+document.addEventListener("keydown",e=>{
+  if(e.target.closest("input,select,textarea")||e.metaKey||e.ctrlKey||e.altKey)return;
+  const v={"1":"bad","2":"medium","3":"good"}[e.key];
+  if(v&&curSeg>=0){setRating(SEG[curSeg][0],v);e.preventDefault()}});
+
+const voicesUnique=()=>{const m=new Map();SEG.forEach(s=>{if(!m.has(s[0]))m.set(s[0],s)});return [...m.values()]};
+function counts(){
+  const vs=voicesUnique(),c={good:0,medium:0,bad:0,none:0};vs.forEach(s=>c[ratings[s[0]]||"none"]++);
+  document.getElementById("counts").innerHTML=`<span class="chip good">${c.good} good</span><span class="chip medium">${c.medium} medium</span><span class="chip bad">${c.bad} bad</span><span class="chip none">${c.none} unrated</span>`}
+function applyFilter(){
+  const f=document.getElementById("filter").value;
+  rowsEl.querySelectorAll("tr[data-no]").forEach(tr=>{const r=ratings[tr.dataset.no]||"none";tr.hidden=!(f==="all"||f===r)});
+  rowsEl.querySelectorAll("tr.group").forEach(g=>{g.hidden=!rowsEl.querySelector(`tr[data-no][data-track="${g.dataset.track}"]:not([hidden])`)})}
+document.getElementById("filter").onchange=applyFilter;
+
+function firstSeg(no){const s=SEG.find(x=>x[0]===no);const t=TRACKS.findIndex(x=>x.stem===s[5]);return `track ${t+1} ${fmt(s[6])}`}
+function md(){
+  const vs=voicesUnique(),order=["good","medium","bad"];let o="# Voice ratings – Collberg & Proebsting voice test\n";
+  for(const r of order){const l=vs.filter(s=>ratings[s[0]]===r);o+=`\n## ${r[0].toUpperCase()+r.slice(1)} (${l.length})\n\n`;
+    l.forEach(s=>o+=`- #${s[0]} en_GB-${s[1]}${s[2]?" speaker "+s[2]:""} (${s[3]}, ${s[4]}) – ${firstSeg(s[0])}\n`)}
+  return o}
+function csvText(){return "no,model,speaker,sex,accent,rating\n"+voicesUnique().map(s=>[s[0],"en_GB-"+s[1],s[2],s[3],`"${s[4]}"`,ratings[s[0]]||""].join(",")).join("\n")}
+let mode="md";
+function exportText(){document.getElementById("out").value=mode==="md"?md():csvText()}
+async function copy(m){mode=m;exportText();const ta=document.getElementById("out"),msg=document.getElementById("copyMsg");
+  try{await navigator.clipboard.writeText(ta.value);msg.textContent="Copied."}catch(e){ta.focus();ta.select();msg.textContent="Text selected. Press Ctrl+C or ⌘C to copy."}}
+document.getElementById("copyMd").onclick=()=>copy("md");
+document.getElementById("copyCsv").onclick=()=>copy("csv");
+
+const speedEl=document.getElementById("speed"),speedOut=document.getElementById("speedOut");
+function setSpeed(x){x=Math.min(2,Math.max(0.5,+x||1));speedEl.value=x;speedOut.textContent=x.toFixed(2)+"×";
+  player.playbackRate=x;player.defaultPlaybackRate=x;player.preservesPitch=true;try{localStorage.setItem(KEY+"-speed",x)}catch(e){}}
+speedEl.oninput=()=>setSpeed(speedEl.value);
+document.getElementById("speedReset").onclick=()=>setSpeed(1);
+player.addEventListener("loadedmetadata",()=>{player.playbackRate=+speedEl.value});
+try{setSpeed(localStorage.getItem(KEY+"-speed")||1)}catch(e){setSpeed(1)}
+tabs();build();counts();applyFilter();exportText();load(0);
+</script>

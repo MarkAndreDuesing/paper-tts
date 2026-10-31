@@ -1,0 +1,23 @@
+no,model,speaker,sex,accent,speech_s,length_scale
+2,en_GB-alba-medium,,female,Scottish-leaning,12.4,0.728
+4,en_GB-jenny_dioco-medium,,female,Southern English,16.72,0.65
+20,en_GB-semaine-medium,spike,male,British (expressive),14.78,0.751
+24,en_GB-vctk-medium,p226,male,English,13.48,0.942
+27,en_GB-vctk-medium,p229,female,English,11.38,1.147
+37,en_GB-vctk-medium,p240,female,English,12.0,1.118
+40,en_GB-vctk-medium,p244,female,English,12.04,1.195
+43,en_GB-vctk-medium,p247,male,Scottish,11.82,1.256
+48,en_GB-vctk-medium,p252,male,Scottish,11.84,1.184
+51,en_GB-vctk-medium,p255,male,Scottish,11.32,1.07
+52,en_GB-vctk-medium,p256,male,English,14.22,0.864
+56,en_GB-vctk-medium,p260,male,Scottish,10.66,1.314
+61,en_GB-vctk-medium,p265,female,Scottish,14.52,0.711
+63,en_GB-vctk-medium,p267,female,English,12.76,1.149
+65,en_GB-vctk-medium,p269,female,English,12.78,1.149
+72,en_GB-vctk-medium,p276,female,English,13.24,0.957
+76,en_GB-vctk-medium,p280,unknown,unknown,12.18,1.037
+80,en_GB-vctk-medium,p284,male,Scottish,10.66,1.396
+88,en_GB-vctk-medium,p298,male,Irish,10.64,1.251
+94,en_GB-vctk-medium,p313,female,Irish,11.36,1.165
+101,en_GB-vctk-medium,p336,female,South African,12.3,1.182
+104,en_GB-vctk-medium,p347,male,South African,13.98,0.849

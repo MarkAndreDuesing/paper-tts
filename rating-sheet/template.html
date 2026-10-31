@@ -1,0 +1,253 @@
+<title>Voice Shortlist Round 6</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600&family=Public+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: sticky listening bar on top, one dense rating table below, grouped by track */
+:root{
+  --bg:#f6f7f9; --panel:#ffffff; --fg:#1d232b; --muted:#5d6672; --line:#dde1e7;
+  --accent:#2f5d8a; --accent-soft:#e3ecf5; --now:#fff4cf;
+  --bad:#b43c3c; --bad-soft:#f8e1e1; --mid:#a86a12; --mid-soft:#f7ead5; --good:#2c7a4b; --good-soft:#dcf0e3;
+  --f-display:"Source Serif 4",Georgia,serif; --f-body:"Public Sans",system-ui,sans-serif; --f-mono:"JetBrains Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#13171c; --panel:#1b2027; --fg:#e4e8ee; --muted:#9aa4b1; --line:#2c333d;
+  --accent:#7fb0e0; --accent-soft:#1f3042; --now:#3a3420;
+  --bad:#ec8a8a; --bad-soft:#3d2224; --mid:#e2b062; --mid-soft:#3a2f1c; --good:#7fcf9d; --good-soft:#1d3527; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#13171c; --panel:#1b2027; --fg:#e4e8ee; --muted:#9aa4b1; --line:#2c333d;
+  --accent:#7fb0e0; --accent-soft:#1f3042; --now:#3a3420;
+  --bad:#ec8a8a; --bad-soft:#3d2224; --mid:#e2b062; --mid-soft:#3a2f1c; --good:#7fcf9d; --good-soft:#1d3527; color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font:15px/1.5 var(--f-body)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--panel)}
+.wrap{max-width:1100px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header{padding-block:24px 8px}
+h1{font:600 1.7rem/1.2 var(--f-display);margin:0 0 4px;text-wrap:balance}
+.sub{color:var(--muted);margin:0;max-width:68ch}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--panel);border-bottom:1px solid var(--line);box-shadow:0 2px 8px rgb(0 0 0 / .05)}
+.bar .wrap{display:flex;flex-direction:column;gap:10px;padding-block:12px}
+.tabs{display:flex;flex-wrap:wrap;gap:6px}
+.tab{font:500 .85rem var(--f-body);border:1px solid var(--line);background:var(--bg);color:var(--fg);padding:6px 10px;border-radius:6px;cursor:pointer}
+.tab[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--panel)}
+audio{width:100%}
+.speed{display:flex;align-items:center;gap:10px;font-size:.85rem;flex-wrap:wrap}
+.speed input{flex:1 1 160px;max-width:320px;accent-color:var(--accent)}
+.speed output{font-family:var(--f-mono);min-width:4.5ch}
+.now{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;font-size:.9rem}
+.now b{font-family:var(--f-mono);font-weight:500}
+.now .lbl{color:var(--muted);font-size:.75rem;letter-spacing:.06em;text-transform:uppercase}
+.rate{display:inline-flex;gap:4px}
+.rate button{font:500 .8rem var(--f-body);border:1px solid var(--line);background:var(--panel);color:var(--fg);padding:4px 9px;border-radius:5px;cursor:pointer;min-width:62px}
+.rate button[data-v="bad"][aria-pressed="true"]{background:var(--bad-soft);border-color:var(--bad);color:var(--bad)}
+.rate button[data-v="medium"][aria-pressed="true"]{background:var(--mid-soft);border-color:var(--mid);color:var(--mid)}
+.rate button[data-v="good"][aria-pressed="true"]{background:var(--good-soft);border-color:var(--good);color:var(--good)}
+button:focus-visible,.tab:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.tools{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;padding-block:14px;font-size:.88rem}
+.counts{display:flex;gap:12px;flex-wrap:wrap;font-variant-numeric:tabular-nums}
+.chip{padding:2px 8px;border-radius:999px;font-size:.8rem;font-weight:600}
+.chip.good{background:var(--good-soft);color:var(--good)} .chip.medium{background:var(--mid-soft);color:var(--mid)} .chip.bad{background:var(--bad-soft);color:var(--bad)} .chip.none{background:var(--accent-soft);color:var(--accent)}
+select,label{font:inherit;color:var(--fg)}
+select{background:var(--panel);border:1px solid var(--line);border-radius:5px;padding:3px 6px}
+.tablebox{overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:8px}
+table{border-collapse:collapse;width:100%;min-width:760px;font-size:.88rem}
+th,td{padding:7px 10px;text-align:left;border-bottom:1px solid var(--line);vertical-align:middle}
+th{font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600;background:var(--panel)}
+tr.group td{background:var(--accent-soft);color:var(--accent);font-weight:600;font-size:.8rem}
+tr.playing td{background:var(--now)}
+.num,.time{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.time button{font:inherit;color:var(--accent);background:none;border:0;padding:0;cursor:pointer;text-decoration:underline;text-underline-offset:2px}
+.voice{font-family:var(--f-mono);font-size:.82rem}
+.words{color:var(--muted);max-width:28ch}
+.r1{color:var(--muted);font-size:.8rem}
+.export{margin-block:24px 40px;display:flex;flex-direction:column;gap:8px}
+.export h2{font:600 1.15rem var(--f-display);margin:0}
+.export .row{display:flex;gap:8px;flex-wrap:wrap}
+.export button{font:500 .85rem var(--f-body);border:1px solid var(--accent);background:var(--accent);color:var(--panel);padding:6px 12px;border-radius:6px;cursor:pointer}
+.export button.ghost{background:var(--panel);color:var(--accent)}
+textarea{width:100%;min-height:160px;box-sizing:border-box;font:.8rem/1.45 var(--f-mono);background:var(--panel);color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:10px}
+.hint{color:var(--muted);font-size:.8rem}
+kbd{font-family:var(--f-mono);font-size:.75rem;border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;padding:0 4px;background:var(--bg)}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style>
+
+<header class="wrap">
+  <h1>Voice Shortlist Round 6</h1>
+  <p class="sub">Winter et al. (2022), read by your 22 shortlisted voices in a mixed order, about 2.6 minutes each, with a 3-second pause at every voice change. Ratings start from your round-3 choices; change any of them as you listen. 1.00× is your preferred pace; the slider changes it in 0.05 steps. Keys <kbd>1</kbd> bad, <kbd>2</kbd> medium, <kbd>3</kbd> good rate the voice that is playing.</p>
+</header>
+
+<div class="bar">
+  <div class="wrap">
+    <div class="tabs" id="tabs" role="group" aria-label="Track"></div>
+    <audio id="player" controls preload="metadata"></audio>
+    <div class="speed">
+      <label for="speed">Speed</label>
+      <input type="range" id="speed" min="0.5" max="2" step="0.05" value="1">
+      <output id="speedOut" for="speed">1.00×</output>
+      <button type="button" id="speedReset" class="tab">Reset</button>
+    </div>
+    <div class="speed">
+      <span>Offline</span>
+      <button type="button" id="offSave" class="tab">Save all tracks on this device</button>
+      <button type="button" id="offClear" class="tab" hidden>Remove</button>
+      <span id="offStatus" class="hint" aria-live="polite">Not saved. Tracks stream (about 20 MB in total).</span>
+    </div>
+    <div class="now" aria-live="polite">
+      <span class="lbl">Now</span>
+      <span id="nowText">Press play to start</span>
+      <span class="rate" id="nowRate"></span>
+    </div>
+  </div>
+</div>
+
+<main class="wrap">
+  <div class="tools">
+    <div class="counts" id="counts"></div>
+    <label for="filter">Show <select id="filter">
+      <option value="all">all voices</option><option value="none">unrated</option>
+      <option value="good">good</option><option value="medium">medium</option><option value="bad">bad</option>
+    </select></label>
+    <label><input type="checkbox" id="follow" checked> Scroll with the audio</label>
+  </div>
+
+  <div class="tablebox">
+    <table>
+      <thead><tr><th>#</th><th>Voice</th><th>Sex</th><th>Accent (approx.)</th><th>Start – end</th><th>First words</th><th>Round 3</th><th>Rating</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+
+  <section class="export">
+    <h2>Export ratings</h2>
+    <p class="hint">Ratings stay in this browser only. Copy them and paste them into the chat, or save them in the repo, to build the shortlist for Paper 2.</p>
+    <div class="row">
+      <button id="copyMd">Copy as Markdown</button>
+      <button id="copyCsv" class="ghost">Copy as CSV</button>
+      <span id="copyMsg" class="hint" aria-live="polite"></span>
+    </div>
+    <textarea id="out" readonly aria-label="Exported ratings"></textarea>
+  </section>
+</main>
+
+<script>
+const TRACKS=[{"stem": "winter-01-survey", "label": "01 Survey", "pages": "pp. 1–2"}, {"stem": "winter-02-background-and-subjects", "label": "02 Background & subjects", "pages": "pp. 1–4"}, {"stem": "winter-03-rq1-visibility", "label": "03 RQ1 visibility", "pages": "pp. 4–5"}, {"stem": "winter-04-rq2-availability", "label": "04 RQ2 availability", "pages": "pp. 5–8"}, {"stem": "winter-05-rq3-to-rq5", "label": "05 RQ3–RQ5", "pages": "pp. 8–10"}, {"stem": "winter-06-threats-and-discussion", "label": "06 Threats & discussion", "pages": "pp. 10–11"}];
+// [voice no, model, speaker, sex, accent, track, start, end, first words]
+const SEG=[[24,"vctk-medium","p226","male","English","winter-01-survey",0.0,162.7,"Winter, Timperley, Hermann, Cito, Bell, Hilton and Beyer,"],[61,"vctk-medium","p265","female","Scottish","winter-01-survey",165.7,321.7,"In the software community the artifactevaluation process started"],[52,"vctk-medium","p256","male","English","winter-01-survey",324.7,430.3,"From these insight we derive several suggestions how"],[52,"vctk-medium","p256","male","English","winter-02-background-and-subjects",0.0,57.9,"Track two: section two, background and related work,"],[2,"alba-medium","","female","Scottish-leaning","winter-02-background-and-subjects",60.9,217.0,"A supplementing research artifact is \"a digital object"],[43,"vctk-medium","p247","male","Scottish","winter-02-background-and-subjects",220.0,377.7,"We particularly pick up on the quality aspect"],[27,"vctk-medium","p229","female","English","winter-02-background-and-subjects",380.7,535.4,"Before we discuss the relevance of these questions"],[48,"vctk-medium","p252","male","Scottish","winter-02-background-and-subjects",538.4,593.6,"This collection includes short papers, as for several"],[48,"vctk-medium","p252","male","Scottish","winter-03-rq1-visibility",0.0,106.4,"Track three: section four, research question one, pages"],[37,"vctk-medium","p240","female","English","winter-03-rq1-visibility",109.4,262.5,"To rule out false positive matches due to"],[51,"vctk-medium","p255","male","Scottish","winter-03-rq1-visibility",265.5,424.5,"We, thus, analyze the impact of these variables"],[40,"vctk-medium","p244","female","English","winter-03-rq1-visibility",427.5,471.5,"Moreover, the significant effects we observe are limited"],[40,"vctk-medium","p244","female","English","winter-04-rq2-availability",0.0,115.0,"Track four: section five, research question two, pages"],[56,"vctk-medium","p260","male","Scottish","winter-04-rq2-availability",118.0,283.1,"Artifact links from Conference Publishing Consulting are extracted"],[4,"jenny_dioco-medium","","female","Southern English","winter-04-rq2-availability",286.1,444.4,"Section five point two, results."],[76,"vctk-medium","p280","unknown","unknown","winter-04-rq2-availability",447.4,599.5,"However, we were able to find GitHub repositories"],[63,"vctk-medium","p267","female","English","winter-04-rq2-availability",602.5,747.3,"The left side of the table lists the"],[63,"vctk-medium","p267","female","English","winter-05-rq3-to-rq5",0.0,11.1,"Track five: sections six to eight, research questions"],[80,"vctk-medium","p284","male","Scottish","winter-05-rq3-to-rq5",14.1,176.1,"If an artifact continues to be maintained and"],[65,"vctk-medium","p269","female","English","winter-05-rq3-to-rq5",179.1,334.8,"All p values are below 0.01 and the"],[88,"vctk-medium","p298","male","Irish","winter-05-rq3-to-rq5",337.8,497.5,"61) than for intersecting author lists (96 vs."],[72,"vctk-medium","p276","female","English","winter-05-rq3-to-rq5",500.5,658.1,"For Git repository links, we attempt to checkout"],[20,"semaine-medium","spike","male","British (expressive)","winter-05-rq3-to-rq5",661.1,818.1,"Overall, the results show that A E artifacts"],[94,"vctk-medium","p313","female","Irish","winter-05-rq3-to-rq5",821.1,858.0,"Please see the PDF for the table."],[94,"vctk-medium","p313","female","Irish","winter-06-threats-and-discussion",0.0,119.2,"Track six: section nine, threats to validity, and"],[104,"vctk-medium","p347","male","South African","winter-06-threats-and-discussion",122.2,273.9,"We have taken great care to analyze potential"],[101,"vctk-medium","p336","female","South African","winter-06-threats-and-discussion",276.9,443.9,"With a decade of artifact publications, the addition"]];
+const ROUND1={"2": "medium", "4": "medium", "20": "medium", "24": "medium", "27": "medium", "37": "good", "40": "medium", "43": "medium", "48": "medium", "51": "medium", "52": "medium", "56": "medium", "61": "good", "63": "medium", "65": "medium", "72": "medium", "76": "medium", "80": "medium", "88": "medium", "94": "medium", "101": "medium", "104": "medium"};
+const KEY="voice-ratings-winter-round6-v1";
+let ratings=null;
+try{ratings=JSON.parse(localStorage.getItem(KEY))}catch(e){}
+if(!ratings)ratings=Object.assign({},ROUND1);
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(ratings))}catch(e){}};
+
+const player=document.getElementById("player"),rowsEl=document.getElementById("rows");
+let curTrack=0,curSeg=-1;
+const fmt=s=>{s=Math.max(0,s);const m=Math.floor(s/60),x=Math.floor(s%60);return m+":"+String(x).padStart(2,"0")};
+const vname=s=>s[1]+(s[2]?" · "+s[2]:"");
+
+function rateButtons(no){
+  const box=document.createElement("span");box.className="rate";
+  for(const v of ["bad","medium","good"]){
+    const b=document.createElement("button");b.type="button";b.dataset.v=v;b.dataset.no=no;
+    b.textContent=v[0].toUpperCase()+v.slice(1);b.setAttribute("aria-pressed",ratings[no]===v);
+    b.setAttribute("aria-label",`Rate voice ${no} ${v}`);
+    b.onclick=()=>setRating(no,ratings[no]===v?null:v);box.append(b)}
+  return box}
+
+function setRating(no,v){
+  if(v)ratings[no]=v;else delete ratings[no];save();
+  document.querySelectorAll(`.rate button[data-no="${no}"]`).forEach(b=>b.setAttribute("aria-pressed",ratings[no]===b.dataset.v));
+  counts();applyFilter();exportText()}
+
+function build(){
+  TRACKS.forEach((t,ti)=>{
+    const g=document.createElement("tr");g.className="group";g.dataset.track=ti;
+    g.innerHTML=`<td colspan="8">Track ${t.label} · ${t.pages}</td>`;rowsEl.append(g);
+    SEG.forEach((s,i)=>{if(s[5]!==t.stem)return;
+      const tr=document.createElement("tr");tr.id="seg"+i;tr.dataset.no=s[0];tr.dataset.track=ti;
+      const time=document.createElement("button");time.type="button";time.textContent=`${fmt(s[6])} – ${fmt(s[7])}`;
+      time.onclick=()=>seek(ti,s[6]+0.05,true);
+      tr.innerHTML=`<td class="num">${s[0]}</td><td class="voice">${vname(s)}</td><td>${s[3]}</td><td>${s[4]}</td><td class="time"></td><td class="words"></td><td class="r1"></td><td></td>`;
+      tr.children[4].append(time);tr.children[5].textContent=s[8]+" …";tr.children[6].textContent=ROUND1[s[0]]||"–";tr.children[7].append(rateButtons(s[0]));
+      rowsEl.append(tr)})})}
+
+function tabs(){
+  const el=document.getElementById("tabs");
+  TRACKS.forEach((t,ti)=>{const b=document.createElement("button");b.className="tab";b.type="button";b.textContent=t.label;
+    b.onclick=()=>seek(ti,0,false);el.append(b)});markTab()}
+function markTab(){[...document.querySelectorAll(".tab")].forEach((b,i)=>b.setAttribute("aria-pressed",i===curTrack))}
+
+// Offline: tracks saved in IndexedDB play from this device without network.
+const DBN="voice-test-round6-audio";let dbp=null;
+function db(){if(!dbp)dbp=new Promise((res,rej)=>{let r;try{r=indexedDB.open(DBN,1)}catch(e){return rej(e)}r.onupgradeneeded=()=>r.result.createObjectStore("t");r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)});return dbp}
+async function idb(mode,fn){const d=await db();return new Promise((res,rej)=>{const tx=d.transaction("t",mode),q=fn(tx.objectStore("t"));tx.oncomplete=()=>res(q&&q.result);tx.onerror=()=>rej(tx.error)})}
+const getT=s=>idb("readonly",o=>o.get(s)).catch(()=>null);
+let curURL=null;
+async function load(ti){curTrack=ti;markTab();const s=TRACKS[ti].stem,b=await getT(s);if(curTrack!==ti)return;
+  if(curURL){URL.revokeObjectURL(curURL);curURL=null}
+  if(b){curURL=URL.createObjectURL(b);player.src=curURL}else player.src=s+".mp3"}
+const offStatus=document.getElementById("offStatus"),offSave=document.getElementById("offSave"),offClear=document.getElementById("offClear");
+async function offRefresh(){let n=0,bytes=0;for(const t of TRACKS){const b=await getT(t.stem);if(b){n++;bytes+=b.size}}
+  const mb=(bytes/1048576).toFixed(0);offClear.hidden=n===0;
+  offStatus.textContent=n===TRACKS.length?`All ${n} tracks saved on this device (${mb} MB). Playback needs no network.`:n?`${n} of ${TRACKS.length} tracks saved (${mb} MB).`:"Not saved. Tracks stream (about 20 MB in total).";
+  offSave.textContent=n===TRACKS.length?"Saved":"Save all tracks on this device";offSave.disabled=n===TRACKS.length}
+offSave.onclick=async()=>{offSave.disabled=true;try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist().catch(()=>{})}catch(e){}
+  try{for(const [i,t] of TRACKS.entries()){if(await getT(t.stem))continue;offStatus.textContent=`Downloading track ${i+1} of ${TRACKS.length}…`;
+    const r=await fetch(t.stem+".mp3");if(!r.ok)throw new Error(r.status);const b=await r.blob();await idb("readwrite",o=>o.put(b,t.stem))}
+    await offRefresh();if(!curURL)load(curTrack)}
+  catch(e){offStatus.textContent="Saving stopped: the connection dropped or this browser blocks storage here. Try again on Wi-Fi.";offSave.disabled=false}};
+offClear.onclick=async()=>{try{await idb("readwrite",o=>o.clear())}catch(e){}offRefresh()};
+offRefresh();
+function seek(ti,t,play){
+  const go=()=>{player.currentTime=t;if(play)player.play().catch(()=>{})};
+  if(ti!==curTrack||!player.src){load(ti);player.addEventListener("loadedmetadata",go,{once:true})}else go()}
+
+player.addEventListener("timeupdate",()=>{
+  const t=player.currentTime,stem=TRACKS[curTrack].stem;
+  const i=SEG.findIndex(s=>s[5]===stem&&t>=s[6]&&t<s[7]);
+  if(i===curSeg)return;
+  document.getElementById("seg"+curSeg)?.classList.remove("playing");curSeg=i;
+  const nowText=document.getElementById("nowText"),nowRate=document.getElementById("nowRate");nowRate.replaceChildren();
+  if(i<0){nowText.textContent="Between voices";return}
+  const s=SEG[i],row=document.getElementById("seg"+i);row.classList.add("playing");
+  nowText.innerHTML=`<b>#${s[0]}</b> ${vname(s)} · ${s[3]} · ${s[4]}`;nowRate.append(rateButtons(s[0]));
+  if(document.getElementById("follow").checked&&!row.hidden)row.scrollIntoView({block:"center",behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"})});
+player.addEventListener("ended",()=>{if(curTrack<TRACKS.length-1)seek(curTrack+1,0,true)});
+
+document.addEventListener("keydown",e=>{
+  if(e.target.closest("input,select,textarea")||e.metaKey||e.ctrlKey||e.altKey)return;
+  const v={"1":"bad","2":"medium","3":"good"}[e.key];
+  if(v&&curSeg>=0){setRating(SEG[curSeg][0],v);e.preventDefault()}});
+
+const voicesUnique=()=>{const m=new Map();SEG.forEach(s=>{if(!m.has(s[0]))m.set(s[0],s)});return [...m.values()]};
+function counts(){
+  const vs=voicesUnique(),c={good:0,medium:0,bad:0,none:0};vs.forEach(s=>c[ratings[s[0]]||"none"]++);
+  document.getElementById("counts").innerHTML=`<span class="chip good">${c.good} good</span><span class="chip medium">${c.medium} medium</span><span class="chip bad">${c.bad} bad</span><span class="chip none">${c.none} unrated</span>`}
+function applyFilter(){
+  const f=document.getElementById("filter").value;
+  rowsEl.querySelectorAll("tr[data-no]").forEach(tr=>{const r=ratings[tr.dataset.no]||"none";tr.hidden=!(f==="all"||f===r)});
+  rowsEl.querySelectorAll("tr.group").forEach(g=>{g.hidden=!rowsEl.querySelector(`tr[data-no][data-track="${g.dataset.track}"]:not([hidden])`)})}
+document.getElementById("filter").onchange=applyFilter;
+
+function firstSeg(no){const s=SEG.find(x=>x[0]===no);const t=TRACKS.findIndex(x=>x.stem===s[5]);return `track ${t+1} ${fmt(s[6])}`}
+function md(){
+  const vs=voicesUnique(),order=["good","medium","bad"];let o="# Voice ratings – round 6 (Winter et al.)\n";
+  for(const r of order){const l=vs.filter(s=>ratings[s[0]]===r);o+=`\n## ${r[0].toUpperCase()+r.slice(1)} (${l.length})\n\n`;
+    l.forEach(s=>o+=`- #${s[0]} en_GB-${s[1]}${s[2]?" speaker "+s[2]:""} (${s[3]}, ${s[4]}) – ${firstSeg(s[0])}\n`)}
+  return o}
+function csvText(){return "no,model,speaker,sex,accent,rating\n"+voicesUnique().map(s=>[s[0],"en_GB-"+s[1],s[2],s[3],`"${s[4]}"`,ratings[s[0]]||""].join(",")).join("\n")}
+let mode="md";
+function exportText(){document.getElementById("out").value=mode==="md"?md():csvText()}
+async function copy(m){mode=m;exportText();const ta=document.getElementById("out"),msg=document.getElementById("copyMsg");
+  try{await navigator.clipboard.writeText(ta.value);msg.textContent="Copied."}catch(e){ta.focus();ta.select();msg.textContent="Text selected. Press Ctrl+C or ⌘C to copy."}}
+document.getElementById("copyMd").onclick=()=>copy("md");
+document.getElementById("copyCsv").onclick=()=>copy("csv");
+
+const speedEl=document.getElementById("speed"),speedOut=document.getElementById("speedOut");
+function setSpeed(x){x=Math.min(2,Math.max(0.5,+x||1));speedEl.value=x;speedOut.textContent=x.toFixed(2)+"×";
+  player.playbackRate=x;player.defaultPlaybackRate=x;player.preservesPitch=true;try{localStorage.setItem(KEY+"-speed",x)}catch(e){}}
+speedEl.oninput=()=>setSpeed(speedEl.value);
+document.getElementById("speedReset").onclick=()=>setSpeed(1);
+player.addEventListener("loadedmetadata",()=>{player.playbackRate=+speedEl.value});
+try{setSpeed(localStorage.getItem(KEY+"-speed")||1)}catch(e){setSpeed(1)}
+tabs();build();counts();applyFilter();exportText();load(0);
+</script>

@@ -1,0 +1,113 @@
+voice_no,model,speaker,track,start,end,first_words
+1,en_GB-alan-medium,,collberg-01-survey,0.0,18.7,"Collberg and Proebsting, twenty sixteen."
+2,en_GB-alba-medium,,collberg-01-survey,18.7,41.0,Standfirst.
+3,en_GB-cori-high,,collberg-01-survey,41.0,59.0,"Second: sharing research software presents many challenges, so"
+4,en_GB-jenny_dioco-medium,,collberg-01-survey,59.0,82.1,Skipping ahead to the discussion section on page
+5,en_GB-northern_english_male-medium,,collberg-01-survey,82.1,90.4,"When we do not produce solid, ready-to-share artifacts"
+6,en_GB-southern_english_female-low,,collberg-01-survey,90.4,106.2,Nosek wrote: because of strong incentives for innovation
+7,en_GB-aru-medium,01,collberg-01-survey,106.2,119.4,The real solution to the problem of researchers
+8,en_GB-aru-medium,02,collberg-01-survey,119.4,137.4,"Unfortunately, in this regard we remain pessimistic, not"
+9,en_GB-aru-medium,03,collberg-01-survey,137.4,148.4,"With required sharing contracts, authors, knowing reviewers are"
+10,en_GB-aru-medium,04,collberg-01-survey,148.4,161.6,Adjusting funding agency regulations to encourage engineering for
+10,en_GB-aru-medium,04,collberg-02-introduction-and-study,0.0,5.8,"Track two: introduction, background and study process, pages"
+11,en_GB-aru-medium,05,collberg-02-introduction-and-study,5.8,25.3,"In twenty twelve, when reading a paper from"
+12,en_GB-aru-medium,06,collberg-02-introduction-and-study,25.3,37.7,We received no response.
+13,en_GB-aru-medium,07,collberg-02-introduction-and-study,37.7,51.6,We asked the authors for clarification and received
+14,en_GB-aru-medium,08,collberg-02-introduction-and-study,51.6,60.2,The university's legal department responded with: we have
+15,en_GB-aru-medium,09,collberg-02-introduction-and-study,60.2,72.3,Expecting a research project of this magnitude to
+16,en_GB-aru-medium,10,collberg-02-introduction-and-study,72.3,88.1,The legal department first responded that the records
+17,en_GB-aru-medium,11,collberg-02-introduction-and-study,88.1,106.0,We declined the offer.
+18,en_GB-aru-medium,12,collberg-02-introduction-and-study,106.0,118.5,"In the end, we concluded that, without assistance"
+19,en_GB-semaine-medium,prudence,collberg-02-introduction-and-study,118.5,135.5,"Reproducibility, repeatability, benefaction."
+20,en_GB-semaine-medium,spike,collberg-02-introduction-and-study,135.5,151.5,Sharing for repeatability is essential to ensure colleagues
+21,en_GB-semaine-medium,obadiah,collberg-02-introduction-and-study,151.5,170.0,"Unlike repeatability, reproducibility does not necessarily require access"
+22,en_GB-semaine-medium,poppy,collberg-02-introduction-and-study,170.0,191.5,Repeatability and reproducibility are cornerstones of the scientific
+23,en_GB-vctk-medium,p225,collberg-02-introduction-and-study,191.5,202.4,We also make recommendations as to how to
+24,en_GB-vctk-medium,p226,collberg-02-introduction-and-study,202.4,217.8,"Correct versions of source code, input data, operating"
+25,en_GB-vctk-medium,p227,collberg-02-introduction-and-study,217.8,236.1,"Here, we use the most liberal definition of"
+26,en_GB-vctk-medium,p228,collberg-02-introduction-and-study,236.1,250.8,"We examined the paper itself, performed web searches,"
+27,en_GB-vctk-medium,p229,collberg-02-introduction-and-study,250.8,261.4,Recommendations.
+28,en_GB-vctk-medium,p230,collberg-02-introduction-and-study,261.4,279.5,Our recommendations are more modest.
+29,en_GB-vctk-medium,p231,collberg-02-introduction-and-study,279.5,288.8,This information should be provided by the authors
+30,en_GB-vctk-medium,p232,collberg-02-introduction-and-study,288.8,299.8,"To this end, we make a recommendation for"
+31,en_GB-vctk-medium,p233,collberg-02-introduction-and-study,299.8,322.5,"In short, papers are sorted into groups: excluded"
+32,en_GB-vctk-medium,p234,collberg-02-introduction-and-study,322.5,325.3,Please see the PDF for the exact labels.
+33,en_GB-vctk-medium,p236,collberg-02-introduction-and-study,325.3,341.3,Background.
+34,en_GB-vctk-medium,p237,collberg-02-introduction-and-study,341.3,352.7,Vandewalle and colleagues examined the 134 papers published
+35,en_GB-vctk-medium,p238,collberg-02-introduction-and-study,352.7,371.1,Stodden reported that while 74 per cent of
+36,en_GB-vctk-medium,p239,collberg-02-introduction-and-study,371.1,382.8,The most common reasons for not sharing code
+37,en_GB-vctk-medium,p240,collberg-02-introduction-and-study,382.8,392.9,"Stodden has since proposed the Open Research License,"
+38,en_GB-vctk-medium,p241,collberg-02-introduction-and-study,392.9,411.2,Public repositories can help authors make their research
+39,en_GB-vctk-medium,p243,collberg-02-introduction-and-study,411.2,434.7,One attractive proposition for researchers to ensure repeatability
+40,en_GB-vctk-medium,p244,collberg-02-introduction-and-study,434.7,441.4,"From twenty eleven until January twenty sixteen, 19"
+41,en_GB-vctk-medium,p245,collberg-02-introduction-and-study,441.4,460.9,"Submitting an artifact is voluntary, and the outcome"
+42,en_GB-vctk-medium,p246,collberg-02-introduction-and-study,460.9,469.6,"For the twenty fifteen edition, this improved to"
+43,en_GB-vctk-medium,p247,collberg-02-introduction-and-study,469.6,481.3,Study process.
+44,en_GB-vctk-medium,p248,collberg-02-introduction-and-study,481.3,504.3,"The conferences were ASPLOS, CCS, OOPSLA, OSDI, PLDI,"
+45,en_GB-vctk-medium,p249,collberg-02-introduction-and-study,504.3,515.5,For the remaining papers we searched for links
+46,en_GB-vctk-medium,p250,collberg-02-introduction-and-study,515.5,527.9,"If still unsuccessful, we sent an email request"
+47,en_GB-vctk-medium,p251,collberg-02-introduction-and-study,527.9,545.1,In the following cases we marked a paper
+48,en_GB-vctk-medium,p252,collberg-02-introduction-and-study,545.1,547.3,We next made two attempts to build each
+49,en_GB-vctk-medium,p253,collberg-02-introduction-and-study,547.3,560.7,This often required editing makefiles and finding and
+50,en_GB-vctk-medium,p254,collberg-02-introduction-and-study,560.7,579.0,A footnote adds that a group of independent
+51,en_GB-vctk-medium,p255,collberg-02-introduction-and-study,579.0,588.0,We also asked the authors if the version
+52,en_GB-vctk-medium,p256,collberg-02-introduction-and-study,588.0,596.8,The survey also let the authors comment on
+53,en_GB-vctk-medium,p257,collberg-03-results,0.0,14.4,Track three: study results and reasons for not
+54,en_GB-vctk-medium,p258,collberg-03-results,14.4,24.1,Weak repeatability B also counts papers whose code
+55,en_GB-vctk-medium,p259,collberg-03-results,24.1,45.8,The formulas are on page 65.
+56,en_GB-vctk-medium,p260,collberg-03-results,45.8,57.2,The latter turns out to be quite common.
+57,en_GB-vctk-medium,p261,collberg-03-results,57.2,63.8,Weak repeatability C measures the extent to which
+58,en_GB-vctk-medium,p262,collberg-03-results,63.8,83.6,This model approximates a situation where ample time
+59,en_GB-vctk-medium,p263,collberg-03-results,83.6,92.9,"Here, C is limited by the response rate"
+60,en_GB-vctk-medium,p264,collberg-03-results,92.9,107.1,"In short: 30 were excluded for special hardware,"
+61,en_GB-vctk-medium,p265,collberg-03-results,107.1,125.4,"146 authors said code could not be provided,"
+62,en_GB-vctk-medium,p266,collberg-03-results,125.4,140.1,Table 2 on page 67 breaks these numbers
+63,en_GB-vctk-medium,p267,collberg-03-results,140.1,161.7,"Academic papers reach 62 per cent, joint papers"
+64,en_GB-vctk-medium,p268,collberg-03-results,161.7,169.6,"However, we did not find significant differences in"
+65,en_GB-vctk-medium,p269,collberg-03-results,169.6,186.3,A footnote adds that the authors only tracked
+66,en_GB-vctk-medium,p270,collberg-03-results,186.3,191.0,The reason joint papers also have a lower
+67,en_GB-vctk-medium,p271,collberg-03-results,191.0,209.7,"For instance, the industrial partner might have imposed"
+68,en_GB-vctk-medium,p272,collberg-03-results,209.7,218.0,"To see how common this is, in our"
+69,en_GB-vctk-medium,p273,collberg-03-results,218.0,231.9,It was encouraging to see that out of
+70,en_GB-vctk-medium,p274,collberg-03-results,231.9,248.1,Why is code not shared?
+71,en_GB-vctk-medium,p275,collberg-03-results,248.1,261.7,"In order for research to be truly repeatable,"
+72,en_GB-vctk-medium,p276,collberg-03-results,261.7,272.0,Authors often told us once their code was
+73,en_GB-vctk-medium,p277,collberg-03-results,272.0,282.2,We are actively working on a number of
+74,en_GB-vctk-medium,p278,collberg-03-results,282.2,293.1,It will never be possible for a reviewer
+75,en_GB-vctk-medium,p279,collberg-03-results,293.1,309.7,"The code was never intended to be released,"
+76,en_GB-vctk-medium,p280,collberg-03-results,309.7,319.6,Lack of proper backup procedures was also a
+77,en_GB-vctk-medium,p281,collberg-03-results,319.6,333.4,My entire implementation for this paper was not
+78,en_GB-vctk-medium,p282,collberg-03-results,333.4,338.2,This author added this helpful suggestion: your best
+79,en_GB-vctk-medium,p283,collberg-03-results,338.2,354.1,"Even academic researchers had licensing issues, with one"
+80,en_GB-vctk-medium,p284,collberg-03-results,354.1,364.5,"If you're interested in obtaining the code, we"
+81,en_GB-vctk-medium,p285,collberg-03-results,364.5,375.1,Some systems were built on top of other
+82,en_GB-vctk-medium,p286,collberg-03-results,375.1,388.3,Sorry for this.
+83,en_GB-vctk-medium,p287,collberg-03-results,388.3,401.9,Few people would manage to get it to
+84,en_GB-vctk-medium,p288,collberg-03-results,401.9,408.7,"Based on earlier bad experience, we would like"
+85,en_GB-vctk-medium,p292,collberg-03-results,408.7,419.6,Producing artifacts solid enough to be shared is
+86,en_GB-vctk-medium,p293,collberg-03-results,419.6,431.4,"In the past, when we attempted to share"
+87,en_GB-vctk-medium,p295,collberg-03-results,431.4,444.3,"Unlike researchers in other fields, computer security researchers"
+88,en_GB-vctk-medium,p298,collberg-03-results,444.3,456.9,Some authors used unusual languages and tools that
+89,en_GB-vctk-medium,p302,collberg-03-results,456.9,461.4,End of track three.
+89,en_GB-vctk-medium,p302,collberg-04-recommendations,0.0,14.8,"Track four: recommendations and sharing contracts, pages 68"
+90,en_GB-vctk-medium,p303,collberg-04-recommendations,14.8,22.6,"Unfortunately, based on our study, it is unrealistic"
+91,en_GB-vctk-medium,p304,collberg-04-recommendations,22.6,36.4,There are several reasons for this: the code
+92,en_GB-vctk-medium,p307,collberg-04-recommendations,36.4,58.3,We thus make a much more modest proposal
+93,en_GB-vctk-medium,p312,collberg-04-recommendations,58.3,69.7,In the same way funding agencies conduct financial
+94,en_GB-vctk-medium,p313,collberg-04-recommendations,69.7,79.5,Require sharing contract.
+95,en_GB-vctk-medium,p314,collberg-04-recommendations,79.5,92.1,While the first point will have the effect
+96,en_GB-vctk-medium,p316,collberg-04-recommendations,92.1,109.1,"Here, we expand on the second point."
+97,en_GB-vctk-medium,p317,collberg-04-recommendations,109.1,121.3,The contract commits the author to making available
+98,en_GB-vctk-medium,p323,collberg-04-recommendations,121.3,136.8,Table 3 lists the data that should be
+99,en_GB-vctk-medium,p326,collberg-04-recommendations,136.8,156.1,"Table 3, on page 68, groups this data"
+100,en_GB-vctk-medium,p335,collberg-04-recommendations,156.1,164.4,"Support: the kinds of support, such as resolving"
+101,en_GB-vctk-medium,p336,collberg-04-recommendations,164.4,179.5,Please see the PDF for the full table.
+102,en_GB-vctk-medium,p340,collberg-04-recommendations,179.5,185.6,Code accessed as a service could be running
+103,en_GB-vctk-medium,p343,collberg-04-recommendations,185.6,199.0,We include an optional comment field to handle
+104,en_GB-vctk-medium,p347,collberg-04-recommendations,199.0,213.0,"A licence, on the other hand, describes the"
+105,en_GB-vctk-medium,p351,collberg-04-recommendations,213.0,227.8,"For example, if a licence prohibits reverse engineering,"
+106,en_GB-vctk-medium,p363,collberg-04-recommendations,227.8,246.6,The contract must also specify the level of
+107,en_GB-vctk-medium,p364,collberg-04-recommendations,246.6,255.5,Example of a sharing contract.
+108,en_GB-vctk-medium,p374,collberg-04-recommendations,255.5,272.3,"For illustrative purposes, the authors give an example"
+109,en_GB-vctk-medium,p376,collberg-04-recommendations,272.3,280.3,"In this research, we must sanitise email exchanges"
+110,en_GB-vctk-medium,s5,collberg-04-recommendations,280.3,292.8,The discussion section on page 69 was already

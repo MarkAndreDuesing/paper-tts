@@ -1,0 +1,111 @@
+no,model,speaker,sex,accent,speech_s,length_scale
+1,en_GB-alan-medium,,male,Southern English,19.04,0.664
+2,en_GB-alba-medium,,female,Scottish-leaning,12.4,1.02
+3,en_GB-cori-high,,female,Southern English,15.66,0.808
+4,en_GB-jenny_dioco-medium,,female,Southern English,16.72,0.757
+5,en_GB-northern_english_male-medium,,male,Northern English,14.1,0.897
+6,en_GB-southern_english_female-low,,female,Southern English,12.68,0.998
+7,en_GB-aru-medium,01,unknown,British (mixed),20.74,0.61
+8,en_GB-aru-medium,02,unknown,British (mixed),14.48,0.874
+9,en_GB-aru-medium,03,unknown,British (mixed),18.0,0.703
+10,en_GB-aru-medium,04,unknown,British (mixed),15.58,0.812
+11,en_GB-aru-medium,05,unknown,British (mixed),14.2,0.891
+12,en_GB-aru-medium,06,unknown,British (mixed),14.94,0.847
+13,en_GB-aru-medium,07,unknown,British (mixed),13.94,0.907
+14,en_GB-aru-medium,08,unknown,British (mixed),14.32,0.883
+15,en_GB-aru-medium,09,unknown,British (mixed),17.5,0.723
+16,en_GB-aru-medium,10,unknown,British (mixed),13.5,0.937
+17,en_GB-aru-medium,11,unknown,British (mixed),15.62,0.81
+18,en_GB-aru-medium,12,unknown,British (mixed),13.9,0.91
+19,en_GB-semaine-medium,prudence,female,British (expressive),14.86,0.851
+20,en_GB-semaine-medium,spike,male,British (expressive),14.78,0.856
+21,en_GB-semaine-medium,obadiah,male,British (expressive),18.1,0.699
+22,en_GB-semaine-medium,poppy,female,British (expressive),12.38,1.022
+23,en_GB-vctk-medium,p225,female,English,11.96,1.058
+24,en_GB-vctk-medium,p226,male,English,13.48,0.938
+25,en_GB-vctk-medium,p227,male,English,12.9,0.981
+26,en_GB-vctk-medium,p228,female,English,13.34,0.948
+27,en_GB-vctk-medium,p229,female,English,11.38,1.112
+28,en_GB-vctk-medium,p230,female,English,13.6,0.93
+29,en_GB-vctk-medium,p231,female,English,10.22,1.238
+30,en_GB-vctk-medium,p232,male,English,11.62,1.089
+31,en_GB-vctk-medium,p233,female,English,12.22,1.035
+32,en_GB-vctk-medium,p234,female,Scottish,12.3,1.028
+33,en_GB-vctk-medium,p236,female,English,10.92,1.158
+34,en_GB-vctk-medium,p237,male,Scottish,11.96,1.058
+35,en_GB-vctk-medium,p238,female,Northern Irish,12.02,1.052
+36,en_GB-vctk-medium,p239,female,English,11.1,1.14
+37,en_GB-vctk-medium,p240,female,English,12.0,1.054
+38,en_GB-vctk-medium,p241,male,Scottish,12.66,0.999
+39,en_GB-vctk-medium,p243,male,English,12.96,0.976
+40,en_GB-vctk-medium,p244,female,English,12.04,1.051
+41,en_GB-vctk-medium,p245,male,Irish,14.5,0.872
+42,en_GB-vctk-medium,p246,male,Scottish,14.24,0.888
+43,en_GB-vctk-medium,p247,male,Scottish,11.82,1.07
+44,en_GB-vctk-medium,p248,female,Indian,11.86,1.067
+45,en_GB-vctk-medium,p249,female,Scottish,12.68,0.998
+46,en_GB-vctk-medium,p250,female,English,9.8,1.291
+47,en_GB-vctk-medium,p251,male,Indian,11.82,1.07
+48,en_GB-vctk-medium,p252,male,Scottish,11.84,1.068
+49,en_GB-vctk-medium,p253,female,Welsh,12.26,1.032
+50,en_GB-vctk-medium,p254,male,English,12.64,1.001
+51,en_GB-vctk-medium,p255,male,Scottish,11.32,1.117
+52,en_GB-vctk-medium,p256,male,English,14.22,0.89
+53,en_GB-vctk-medium,p257,female,English,8.94,1.415
+54,en_GB-vctk-medium,p258,male,English,12.46,1.015
+55,en_GB-vctk-medium,p259,male,English,13.44,0.941
+56,en_GB-vctk-medium,p260,male,Scottish,10.66,1.187
+57,en_GB-vctk-medium,p261,female,Northern Irish,12.32,1.027
+58,en_GB-vctk-medium,p262,female,Scottish,13.78,0.918
+59,en_GB-vctk-medium,p263,male,Scottish,12.22,1.035
+60,en_GB-vctk-medium,p264,female,Scottish,11.94,1.059
+61,en_GB-vctk-medium,p265,female,Scottish,14.52,0.871
+62,en_GB-vctk-medium,p266,female,Irish,12.08,1.047
+63,en_GB-vctk-medium,p267,female,English,12.76,0.991
+64,en_GB-vctk-medium,p268,female,English,12.64,1.001
+65,en_GB-vctk-medium,p269,female,English,12.78,0.99
+66,en_GB-vctk-medium,p270,male,English,13.96,0.906
+67,en_GB-vctk-medium,p271,male,Scottish,14.12,0.896
+68,en_GB-vctk-medium,p272,male,Scottish,12.36,1.023
+69,en_GB-vctk-medium,p273,male,English,11.5,1.1
+70,en_GB-vctk-medium,p274,male,English,13.52,0.936
+71,en_GB-vctk-medium,p275,male,Scottish,11.58,1.092
+72,en_GB-vctk-medium,p276,female,English,13.24,0.955
+73,en_GB-vctk-medium,p277,female,English,13.52,0.936
+74,en_GB-vctk-medium,p278,male,English,11.76,1.076
+75,en_GB-vctk-medium,p279,male,English,9.94,1.273
+76,en_GB-vctk-medium,p280,unknown,unknown,12.18,1.039
+77,en_GB-vctk-medium,p281,male,Scottish,13.12,0.964
+78,en_GB-vctk-medium,p282,female,English,12.48,1.014
+79,en_GB-vctk-medium,p283,female,Irish,12.04,1.051
+80,en_GB-vctk-medium,p284,male,Scottish,10.66,1.187
+81,en_GB-vctk-medium,p285,male,Scottish,12.02,1.052
+82,en_GB-vctk-medium,p286,male,English,13.62,0.929
+83,en_GB-vctk-medium,p287,male,English,12.24,1.033
+84,en_GB-vctk-medium,p288,female,Irish,11.82,1.07
+85,en_GB-vctk-medium,p292,male,Northern Irish,13.38,0.945
+86,en_GB-vctk-medium,p293,female,Northern Irish,12.22,1.035
+87,en_GB-vctk-medium,p295,female,Irish,11.54,1.096
+88,en_GB-vctk-medium,p298,male,Irish,10.64,1.189
+89,en_GB-vctk-medium,p302,male,Canadian,10.3,1.228
+90,en_GB-vctk-medium,p303,female,Canadian,11.98,1.056
+91,en_GB-vctk-medium,p304,male,Northern Irish,11.78,1.074
+92,en_GB-vctk-medium,p307,female,Canadian,13.38,0.945
+93,en_GB-vctk-medium,p312,female,Canadian,13.2,0.958
+94,en_GB-vctk-medium,p313,female,Irish,11.36,1.114
+95,en_GB-vctk-medium,p314,female,South African,12.96,0.976
+96,en_GB-vctk-medium,p316,male,Canadian,13.56,0.933
+97,en_GB-vctk-medium,p317,female,Canadian,12.64,1.001
+98,en_GB-vctk-medium,p323,female,South African,13.06,0.969
+99,en_GB-vctk-medium,p326,male,Australian,13.16,0.961
+100,en_GB-vctk-medium,p335,female,New Zealand,13.42,0.943
+101,en_GB-vctk-medium,p336,female,South African,12.3,1.028
+102,en_GB-vctk-medium,p340,female,Irish,11.86,1.067
+103,en_GB-vctk-medium,p343,female,Canadian,13.24,0.955
+104,en_GB-vctk-medium,p347,male,South African,13.98,0.905
+105,en_GB-vctk-medium,p351,female,Northern Irish,13.32,0.95
+106,en_GB-vctk-medium,p363,male,Canadian,11.68,1.083
+107,en_GB-vctk-medium,p364,male,Irish,16.0,0.791
+108,en_GB-vctk-medium,p374,male,Australian,14.44,0.876
+109,en_GB-vctk-medium,p376,male,Indian,12.24,1.033
+110,en_GB-vctk-medium,s5,unknown,unknown,12.0,1.054

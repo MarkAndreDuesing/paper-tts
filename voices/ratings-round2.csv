@@ -1,0 +1,62 @@
+no,model,speaker,sex,accent,length_scale,rating
+1,en_GB-alan-medium,,male,Southern English,0.658,bad
+2,en_GB-alba-medium,,female,Scottish-leaning,0.828,medium
+4,en_GB-jenny_dioco-medium,,female,Southern English,0.737,good
+5,en_GB-northern_english_male-medium,,male,Northern English,0.897,good
+8,en_GB-aru-medium,02,unknown,British (mixed),0.823,bad
+10,en_GB-aru-medium,04,unknown,British (mixed),0.764,bad
+11,en_GB-aru-medium,05,unknown,British (mixed),0.844,bad
+13,en_GB-aru-medium,07,unknown,British (mixed),0.86,bad
+14,en_GB-aru-medium,08,unknown,British (mixed),0.815,bad
+17,en_GB-aru-medium,11,unknown,British (mixed),0.722,bad
+18,en_GB-aru-medium,12,unknown,British (mixed),0.835,bad
+20,en_GB-semaine-medium,spike,male,British (expressive),0.778,medium
+23,en_GB-vctk-medium,p225,female,English,1.096,bad
+24,en_GB-vctk-medium,p226,male,English,0.948,medium
+26,en_GB-vctk-medium,p228,female,English,0.907,bad
+27,en_GB-vctk-medium,p229,female,English,1.144,medium
+32,en_GB-vctk-medium,p234,female,Scottish,1.19,bad
+33,en_GB-vctk-medium,p236,female,English,1.202,bad
+34,en_GB-vctk-medium,p237,male,Scottish,1.2,bad
+37,en_GB-vctk-medium,p240,female,English,1.124,good
+39,en_GB-vctk-medium,p243,male,English,1.017,bad
+40,en_GB-vctk-medium,p244,female,English,1.179,medium
+41,en_GB-vctk-medium,p245,male,Irish,0.777,bad
+42,en_GB-vctk-medium,p246,male,Scottish,0.82,medium
+43,en_GB-vctk-medium,p247,male,Scottish,1.213,medium
+45,en_GB-vctk-medium,p249,female,Scottish,0.98,medium
+47,en_GB-vctk-medium,p251,male,Indian,1.191,bad
+48,en_GB-vctk-medium,p252,male,Scottish,1.181,medium
+51,en_GB-vctk-medium,p255,male,Scottish,1.1,medium
+52,en_GB-vctk-medium,p256,male,English,0.906,medium
+53,en_GB-vctk-medium,p257,female,English,1.658,bad
+54,en_GB-vctk-medium,p258,male,English,1.117,bad
+56,en_GB-vctk-medium,p260,male,Scottish,1.295,medium
+58,en_GB-vctk-medium,p262,female,Scottish,0.861,bad
+61,en_GB-vctk-medium,p265,female,Scottish,0.682,good
+63,en_GB-vctk-medium,p267,female,English,0.968,medium
+64,en_GB-vctk-medium,p268,female,English,0.879,bad
+65,en_GB-vctk-medium,p269,female,English,0.936,medium
+66,en_GB-vctk-medium,p270,male,English,0.991,bad
+68,en_GB-vctk-medium,p272,male,Scottish,1.042,bad
+69,en_GB-vctk-medium,p273,male,English,1.207,bad
+70,en_GB-vctk-medium,p274,male,English,0.824,bad
+71,en_GB-vctk-medium,p275,male,Scottish,1.176,bad
+72,en_GB-vctk-medium,p276,female,English,0.936,good
+74,en_GB-vctk-medium,p278,male,English,1.058,medium
+75,en_GB-vctk-medium,p279,male,English,1.468,medium
+76,en_GB-vctk-medium,p280,unknown,unknown,1.013,medium
+77,en_GB-vctk-medium,p281,male,Scottish,0.975,bad
+78,en_GB-vctk-medium,p282,female,English,1.068,medium
+80,en_GB-vctk-medium,p284,male,Scottish,1.454,medium
+83,en_GB-vctk-medium,p287,male,English,1.089,bad
+84,en_GB-vctk-medium,p288,female,Irish,1.146,bad
+88,en_GB-vctk-medium,p298,male,Irish,1.356,medium
+89,en_GB-vctk-medium,p302,male,Canadian,1.503,bad
+90,en_GB-vctk-medium,p303,female,Canadian,1.017,bad
+94,en_GB-vctk-medium,p313,female,Irish,1.198,medium
+100,en_GB-vctk-medium,p335,female,New Zealand,0.819,bad
+101,en_GB-vctk-medium,p336,female,South African,1.018,medium
+104,en_GB-vctk-medium,p347,male,South African,0.899,medium
+109,en_GB-vctk-medium,p376,male,Indian,1.065,bad
+110,en_GB-vctk-medium,s5,unknown,unknown,0.981,bad

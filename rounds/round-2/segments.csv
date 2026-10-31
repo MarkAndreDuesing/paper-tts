@@ -1,0 +1,67 @@
+voice_no,model,speaker,track,start,end,first_words,chars
+1,en_GB-alan-medium,,heumueller-01-survey,0.0,65.9,"Heumüller, Nielebock, Krüger and Ortmeier, twenty twenty.",1236
+2,en_GB-alba-medium,,heumueller-01-survey,65.9,146.1,Our dataset comprises 789 I C S E,1377
+4,en_GB-jenny_dioco-medium,,heumueller-01-survey,146.1,213.4,"In the context of this article, software artifacts",1262
+5,en_GB-northern_english_male-medium,,heumueller-01-survey,213.4,283.3,"For instance, the Association for Computing Machinery, the",1305
+8,en_GB-aru-medium,02,heumueller-01-survey,283.3,352.5,"Another issue with existing platforms is a missing,",1291
+10,en_GB-aru-medium,04,heumueller-01-survey,352.5,424.4,While being only an indirect measure for the,1348
+11,en_GB-aru-medium,05,heumueller-01-survey,424.4,496.9,"Second, we analysed 789 papers that have been",1339
+13,en_GB-aru-medium,07,heumueller-01-survey,496.9,565.0,"Fourth, with an increase of publicly available software",1257
+14,en_GB-aru-medium,08,heumueller-01-survey,565.0,636.6,"In this article, we presented the results of",1333
+17,en_GB-aru-medium,11,heumueller-01-survey,636.6,708.6,"However, we are certain that studying and comparing",1311
+18,en_GB-aru-medium,12,heumueller-01-survey,708.6,742.9,"Table 3, on page 15: linked and available",549
+18,en_GB-aru-medium,12,heumueller-02-background,0.0,43.7,"Track two: section two, artifact publishing guidelines, pages",901
+20,en_GB-semaine-medium,spike,heumueller-02-background,43.7,110.8,We chose these guidelines because they represent recent,1258
+23,en_GB-vctk-medium,p225,heumueller-02-background,110.8,178.2,The four properties analysed in this study are,1281
+24,en_GB-vctk-medium,p226,heumueller-02-background,178.2,246.1,First experiences from the A C M Multimedia,1288
+26,en_GB-vctk-medium,p228,heumueller-02-background,246.1,313.8,"For example, conferences can enforce the publication of",1247
+27,en_GB-vctk-medium,p229,heumueller-02-background,313.8,379.4,The reviewers then evaluate whether the described artifact,1240
+32,en_GB-vctk-medium,p234,heumueller-02-background,379.4,440.6,"Regarding the publication of artifacts, the authors suggest",1270
+33,en_GB-vctk-medium,p236,heumueller-02-background,440.6,511.1,"Finally, the artifact is uploaded to a GitHub",1325
+34,en_GB-vctk-medium,p237,heumueller-02-background,511.1,576.5,"While, in theory, any unique calling name, such",1326
+37,en_GB-vctk-medium,p240,heumueller-02-background,576.5,643.5,"Moreover, it is good practice to add input",1309
+39,en_GB-vctk-medium,p243,heumueller-02-background,643.5,705.5,We can see that in particular the last,1195
+40,en_GB-vctk-medium,p244,heumueller-02-background,705.5,769.3,"Several properties, namely the open issue list, software",1305
+41,en_GB-vctk-medium,p245,heumueller-02-background,769.3,797.2,"Finally, we analysed the distribution types, because researchers",513
+41,en_GB-vctk-medium,p245,heumueller-03-method,0.0,40.1,"Track three: section three, methodology, pages 8 to",748
+42,en_GB-vctk-medium,p246,heumueller-03-method,40.1,107.5,To improve comparability and to eliminate other sources,1250
+43,en_GB-vctk-medium,p247,heumueller-03-method,107.5,173.3,Note that we only accepted web links linking,1345
+45,en_GB-vctk-medium,p249,heumueller-03-method,173.3,246.0,"To address this issue, we adapted the average",1346
+47,en_GB-vctk-medium,p251,heumueller-03-method,246.0,310.9,The choice of the similarity metric is crucial,1304
+48,en_GB-vctk-medium,p252,heumueller-03-method,310.9,372.0,"Next, we describe our process for manually classifying",1230
+51,en_GB-vctk-medium,p255,heumueller-03-method,372.0,442.2,"During the second round, we classified our entire",1330
+52,en_GB-vctk-medium,p256,heumueller-03-method,442.2,511.0,"In Table 2, we provide an overview of",1313
+53,en_GB-vctk-medium,p257,heumueller-03-method,511.0,575.0,"The latter we considered to be technical contributions,",1246
+54,en_GB-vctk-medium,p258,heumueller-03-method,575.0,643.7,"For instance, the same paper may refer to",1391
+56,en_GB-vctk-medium,p260,heumueller-03-method,643.7,707.6,Type of website.,1230
+58,en_GB-vctk-medium,p262,heumueller-03-method,707.6,772.8,"Therefore, we integrated this paper into the class",1224
+58,en_GB-vctk-medium,p262,heumueller-04-results,0.0,4.2,"Track four: section four, evaluation, pages 13 to",53
+61,en_GB-vctk-medium,p265,heumueller-04-results,4.2,73.1,The evaluation took place between the twentieth of,1272
+63,en_GB-vctk-medium,p267,heumueller-04-results,73.1,145.3,This also underpins the importance of software artifacts,1345
+64,en_GB-vctk-medium,p268,heumueller-04-results,145.3,220.7,We conclude that technical papers are the most,1306
+65,en_GB-vctk-medium,p269,heumueller-04-results,220.7,293.8,"In total, in 289 of 604 S A",1326
+66,en_GB-vctk-medium,p270,heumueller-04-results,293.8,361.0,"Both lines are almost parallel, with slopes of",1341
+68,en_GB-vctk-medium,p272,heumueller-04-results,361.0,422.8,"Curiously, we also found one website that the",1187
+69,en_GB-vctk-medium,p273,heumueller-04-results,422.8,484.9,"We deliberately do not name clusters, since our",1244
+70,en_GB-vctk-medium,p274,heumueller-04-results,484.9,558.3,Note that we found only one artifact that,1288
+71,en_GB-vctk-medium,p275,heumueller-04-results,558.3,626.1,"Figure 5, on page 18, shows for each",1344
+72,en_GB-vctk-medium,p276,heumueller-04-results,626.1,699.4,"Consequently, we conclude that most researchers at I",1356
+74,en_GB-vctk-medium,p278,heumueller-04-results,699.4,767.2,"In short: each pair of boxes overlaps heavily,",1244
+75,en_GB-vctk-medium,p279,heumueller-04-results,767.2,832.4,"However, for the differences in the mean A",1290
+76,en_GB-vctk-medium,p280,heumueller-04-results,832.4,839.6,End of track four.,108
+76,en_GB-vctk-medium,p280,heumueller-05-discussion-and-threats,0.0,64.5,"Track five: section five, discussion, and section six,",1227
+77,en_GB-vctk-medium,p281,heumueller-05-discussion-and-threats,64.5,134.3,The authors list the following reasons.,1325
+78,en_GB-vctk-medium,p282,heumueller-05-discussion-and-threats,134.3,196.3,While we are generally aware of what constitutes,1236
+80,en_GB-vctk-medium,p284,heumueller-05-discussion-and-threats,196.3,258.7,An important point we want to stress is,1252
+83,en_GB-vctk-medium,p287,heumueller-05-discussion-and-threats,258.7,321.4,"However, software is very mutable, and simple naming",1237
+84,en_GB-vctk-medium,p288,heumueller-05-discussion-and-threats,321.4,387.5,"In our study, we found only a single",1301
+88,en_GB-vctk-medium,p298,heumueller-05-discussion-and-threats,387.5,453.5,We encourage the software-engineering community to further adopt,1310
+89,en_GB-vctk-medium,p302,heumueller-05-discussion-and-threats,453.5,519.0,Such badges could also link to new versions,1339
+90,en_GB-vctk-medium,p303,heumueller-05-discussion-and-threats,519.0,588.9,"Depending on how frequently this happens in practice,",1269
+94,en_GB-vctk-medium,p313,heumueller-05-discussion-and-threats,588.9,653.4,"Also, since there is usually no version information",1276
+100,en_GB-vctk-medium,p335,heumueller-05-discussion-and-threats,653.4,726.8,"To mitigate this threat, we validated the classifications",1320
+101,en_GB-vctk-medium,p336,heumueller-05-discussion-and-threats,726.8,772.7,"However, this threat would also remain for any",869
+101,en_GB-vctk-medium,p336,heumueller-06-related-work,0.0,21.1,"Track six: section seven, related work, pages 25",395
+104,en_GB-vctk-medium,p347,heumueller-06-related-work,21.1,89.0,This improves the ability to replicate results and,1280
+109,en_GB-vctk-medium,p376,heumueller-06-related-work,89.0,155.4,Work on open-access papers and data.,1293
+110,en_GB-vctk-medium,s5,heumueller-06-related-work,155.4,227.8,Analysis of software-engineering research.,1300

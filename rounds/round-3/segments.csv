@@ -1,0 +1,35 @@
+voice_no,model,speaker,track,start,end,first_words,chars
+2,en_GB-alba-medium,,timperley-01-survey,0.0,218.6,"Timperley, Herckis, Le Goues and Hilton, twenty twenty-one.",3823
+4,en_GB-jenny_dioco-medium,,timperley-01-survey,218.6,434.0,These processes allow the claims of artifacts to,3946
+5,en_GB-northern_english_male-medium,,timperley-01-survey,434.0,655.0,Second: We present the integrated results of our,3908
+20,en_GB-semaine-medium,spike,timperley-01-survey,655.0,682.3,"Figure 3, on page 20: artifact availability by",366
+20,en_GB-semaine-medium,spike,timperley-02-background,0.0,190.2,"Track two: section two, background, pages 3 to",3472
+24,en_GB-vctk-medium,p226,timperley-02-background,190.2,403.4,After a submitted paper has been accepted by,3902
+27,en_GB-vctk-medium,p229,timperley-02-background,403.4,487.8,"All innovation, and all diffusion of innovation, takes",1539
+27,en_GB-vctk-medium,p229,timperley-03-method,0.0,135.6,"Track three: section three, methodology, including the threats",2420
+37,en_GB-vctk-medium,p240,timperley-03-method,135.6,353.5,After finding a list of possible U R,3945
+40,en_GB-vctk-medium,p244,timperley-03-method,353.5,565.7,"137 count as creators, 129 as users, and",3934
+42,en_GB-vctk-medium,p246,timperley-03-method,565.7,786.0,These individuals have the ability to improve the,3932
+43,en_GB-vctk-medium,p247,timperley-03-method,786.0,824.7,External validity.,677
+43,en_GB-vctk-medium,p247,timperley-04-results,0.0,178.4,"Track four: section four, results, pages 11 to",3282
+45,en_GB-vctk-medium,p249,timperley-04-results,178.4,394.0,"In the following sections, we discuss how these",3909
+48,en_GB-vctk-medium,p252,timperley-04-results,394.0,612.3,"On the other hand, in my own experience",4002
+51,en_GB-vctk-medium,p255,timperley-04-results,612.3,824.1,"For example, participant 34 says that it is",3869
+52,en_GB-vctk-medium,p256,timperley-04-results,824.1,1035.7,"For example, participant 140 says, ""in our collaboration",3883
+56,en_GB-vctk-medium,p260,timperley-04-results,1035.7,1249.9,"For example, participant 137 recalls a challenge in",3927
+61,en_GB-vctk-medium,p265,timperley-04-results,1249.9,1463.5,4.2.3 research question 2 point 3: What Challenges,3869
+63,en_GB-vctk-medium,p267,timperley-04-results,1463.5,1665.6,And (surprise!) having containers does not always solve,3976
+65,en_GB-vctk-medium,p269,timperley-04-results,1665.6,1863.1,An improperly implemented benchmark should be grounds for,3996
+72,en_GB-vctk-medium,p276,timperley-04-results,1863.1,1911.6,An important thing is that the owners of,941
+72,en_GB-vctk-medium,p276,timperley-05-secondary-analysis,0.0,156.0,"Track five: section five, secondary analysis, pages 24",2856
+74,en_GB-vctk-medium,p278,timperley-05-secondary-analysis,156.0,359.0,Artifact evaluation and paper review serve as a,3867
+75,en_GB-vctk-medium,p279,timperley-05-secondary-analysis,359.0,572.1,"Section five point two point three, artifact badges.",3958
+76,en_GB-vctk-medium,p280,timperley-05-secondary-analysis,572.1,595.5,"Ultimately, the lack of incentives for both authors",404
+76,en_GB-vctk-medium,p280,timperley-06-recommendations,0.0,186.3,"Track six: section six, recommendations, pages 28 to",3410
+78,en_GB-vctk-medium,p282,timperley-06-recommendations,186.3,396.2,"These instructions should either be checked manually, or,",3923
+80,en_GB-vctk-medium,p284,timperley-06-recommendations,396.2,606.3,For (aspects of) artifacts that they do not,3823
+88,en_GB-vctk-medium,p298,timperley-06-recommendations,606.3,809.3,"To address this situation, A E Cs should",3689
+94,en_GB-vctk-medium,p313,timperley-06-recommendations,809.3,933.7,"The N S F, for example, requires that",2213
+94,en_GB-vctk-medium,p313,timperley-07-related-work,0.0,104.0,"Track seven: section seven, related work, pages 35",1972
+101,en_GB-vctk-medium,p336,timperley-07-related-work,104.0,304.3,We observe a similar spectrum of views on,3819
+104,en_GB-vctk-medium,p347,timperley-07-related-work,304.3,517.5,"Their results, while not conclusive, suggest that A",3707

@@ -1,0 +1,146 @@
+# Example: how the Timperley et al. (2021) listening script was built.
+# Step 1: extract text per page with markers:
+#   for p in $(seq 1 38); do echo "@@PAGE $p"; pdftotext -f $p -l $p paper.pdf -; done > timp_raw.txt
+# Step 2: auto-clean (headers, citations, hyphenation) into timp_clean.txt (see clean_pdf_text.py).
+# Step 3: this script picks paragraphs by line number per track, adds spoken signposts
+#   and table/figure descriptions with page numbers, and expands abbreviations.
+# Line numbers are specific to this paper; copy the structure, not the numbers.
+# Usage: python3 build_script_timperley_2021.py <dir with timp_clean.txt> <output script.txt>
+import re,sys
+d=sys.argv[1]
+L=open(d+'/timp_clean.txt').read().split('\n')
+def g(*ns): return ' '.join(L[n-1].strip() for n in ns)
+P=[]  # output lines
+def T(no,stem,title,pages): P.append(f'### {no} | {stem} | {title} | {pages}')
+def S(t): P.append(t)
+A='Timperley, Herckis, Le Goues and Hilton, twenty twenty-one'
+FIG={}
+T('01','timperley-01-survey','Survey: abstract, introduction, conclusion, figures and tables','pp. 1–3, 37–38')
+S(f'{A}. Understanding and improving artifact sharing in software engineering research. Published in Empirical Software Engineering. Track one: survey. This track covers the abstract and the introduction on pages 1 to 3, then jumps ahead to the conclusion on pages 37 and 38, and ends with an overview of all figures and tables.')
+S('A note on terms: the paper uses A E C for artifact evaluation committee, and abbreviates the venues I C S E, F S E, A S E and E M S E. Survey participants are quoted by number, for example participant 89. Challenges are numbered C1 to C12, read as challenge one to challenge twelve, and recommendations R1 to R8.')
+S(re.sub(r' Keywords .*','',L[5]))
+S('Section one, introduction. '+re.sub(r'^1 Introduction ','',L[12]))
+S(g(14,16)); S(L[16])
+S('The main contributions are as follows. First: '+L[18]+' '+L[23]+' Second: '+L[24]+' '+L[25])
+S('Skipping ahead to section eight, the conclusion, on pages 37 and 38. Sections two to seven follow from track two onwards.')
+S('Section eight, conclusion. '+re.sub(r'^8 Conclusion ','',L[533])); S(L[535]); S(L[536])
+S(re.sub(r' Availability of data and material.*','',L[537])+' A replication package for this study, including the author survey instrument and the results of the publication survey, is available on Zenodo.')
+S('Overview of figures and tables, with their pages. Figure 1, on page 7: overview of the study method. Table 1, on page 8: the survey questions and their research questions. Table 2, on page 8: roles of the survey participants. Figure 2, on page 12: papers with and without artifacts per year. Table 3, on page 12: motivations for sharing artifacts. Table 4, on pages 14 and 15: the twelve challenges, C1 to C12. Table 5, on page 19: challenges users faced, with counts. Figure 3, on page 20: artifact availability by year. Figure 4, on page 21: the artifact evaluation funnel at F S E. Figure 5, on page 26: communication channels between creators, users and reviewers. Table 6, on pages 29 and 30, printed sideways: the eight recommendations with their target groups.')
+S('End of track one. Next: track two, section two, background, from page 3.')
+
+T('02','timperley-02-background','Section 2: background','pp. 3–6')
+S('Track two: section two, background, pages 3 to 6.')
+S('Section two. '+re.sub(r'^2 Background ','',L[27]))
+S('Section two point one, software engineering artifacts. '+re.sub(r'^2\.1 Software Engineering Artifacts ','',g(29,31)))
+S(L[31])
+S('Section two point two, recognition of software engineering artifacts. '+re.sub(r'^2\.2 Recognition of Software Engineering Artifacts ','',L[32]))
+for n in (34,35): S(L[n-1])
+S('The four criteria are as follows. '+g(36,38))
+S(re.sub(r'\.1$','.',L[38]))
+S('Section two point three, diffusion of innovations. '+re.sub(r'^2\.3 Diffusion of Innovations ','',L[39]))
+S(re.sub(r' –$','',L[40])+' '+L[43]); S(L[44]); S(L[48])
+S('Section two point four, implementation science. '+re.sub(r'^2\.4 Implementation Science ','',L[49])); S(L[50])
+S('End of track two. Next: track three, section three, methodology, from page 6.')
+
+T('03','timperley-03-method','Section 3: methodology and threats to validity','pp. 6–11')
+S('Track three: section three, methodology, including the threats to validity, pages 6 to 11.')
+S('Section three, methodology. In this study, we set out to obtain insights into the values, norms, and practices of the software engineering research community. To determine the reasons and extent to which artifacts are created, shared, and used by researchers, we ask research question one: does the software engineering research community perceive inherent value in artifacts? To understand the challenges that prevent the community from realizing the full potential of artifacts, we ask research question two: what are the challenges of creating, sharing, using, and reviewing artifacts? We split it into three subquestions. Research question two point one: what challenges are faced by artifact creators? Two point two: what challenges are faced by artifact users? Two point three: what challenges are faced by artifact reviewers?')
+S(L[59])
+S('Figure 1, on page 7, is a diagram of the study design: the publication survey and the author survey feed a primary analysis, then a secondary analysis, and finally the recommendations. Please see the PDF for the diagram.')
+S('Section three point one, publication survey. '+re.sub(r'^3\.1 Publication Survey ','',L[75]))
+S('Section three point two, author survey. '+re.sub(r'^3\.2 Author Survey ','',L[76]))
+S('Table 1, on page 8, lists the 16 numbered survey questions and the research question each one serves, for example: have you ever published a paper that included an artifact; what challenges have you faced when trying to use an artifact other than your own; and what are the most important things an artifact should have, be, or do. Please see the PDF for the full list.')
+S(re.sub(r'^Recruitment ','Recruitment. ',g(78,133)))
+S(L[133])
+S(re.sub(r' Table 2 The self-reported.*','',L[134]).replace('Qualitative Analysis ','Qualitative analysis. ')+' '+L[159])
+S('Table 2, on page 8, gives the roles of the 153 participants. In short: 139 academic researchers, that is 91 per cent, 8 industrial researchers and 6 industrial practitioners. 137 count as creators, 129 as users, and 32, or 21 per cent, as reviewers. Please see the PDF for the table.')
+S(L[160])
+S('Section three point three, secondary analysis. '+re.sub(r'^3\.3 Secondary Analysis ','',L[161]))
+S('Section three point four, recommendations. '+re.sub(r'^3\.4 Recommendations ','',L[162]))
+S(L[163]); S(L[164]); S(g(166,168)); S(L[168]); S(L[169])
+S('Section three point five, threats to validity. '+re.sub(r'^3\.5 Threats to Validity ','',L[170]))
+S(L[171].replace('Replicability Can others','Replicability. Can others').replace(' Construct Are we',' Construct validity. Are we'))
+S(g(173,175).replace('Internal Did we','Internal validity. Did we').replace(' External Do our',' External validity. Do our'))
+S(L[175])
+S('End of track three. Next: track four, section four, results, from page 11.')
+
+T('04','timperley-04-results','Section 4: results','pp. 11–24')
+S('Track four: section four, results, pages 11 to 24.')
+S('Section four, results. '+re.sub(r'^4 Results ','',L[176]))
+S('Section four point one, research question one: does the software engineering research community perceive inherent value in artifacts?')
+S(L[178])
+S(g(180,183))
+S('Figure 2, on page 12, is a bar chart of papers with and without an artifact for each year from twenty fourteen to twenty eighteen. In short: the share with an artifact rises from about half to about seventy per cent. Please see the PDF for the chart.')
+S('Table 3, on page 12, summarises four motivations for sharing, each with a quote. Supporting evidence: artifacts back up the paper\'s claims and raise readers\' confidence. Community norms: sharing is seen as good practice. Facilitating reuse: tools and datasets others can reuse and extend. Improving understanding: extra details and raw results that do not fit in a paper. Please see the PDF for the quotes.')
+S('Section four point two, research question two: what are the challenges of creating, sharing, using, and reviewing artifacts?')
+S(L[206])
+S('Table 4, on pages 14 and 15, lists the twelve challenges, each marked for creators, users or reviewers and with a representative quote. In short: C1, not worth it. C2, portability. C3, maintenance. C4, tacit knowledge. C5, artifact does not fit purpose. C6, lack of standards and guidelines. C7, hosting. C8, double-blind review. C9, external constraints. C10, lack of reviewer incentives. C11, technical obstacles. C12, limited communication. Each is explained in the text that follows. Please see the PDF for the quotes.')
+S('Section four point two point one, research question two point one: what challenges are faced by artifact creators? Below, we describe the high-level challenges in Table 4 that affect artifact creators.')
+S(g(209,308))
+for n in (309,310,311,313,314,315,317,318,319): S(L[n-1])
+S(g(320,323))
+S('Section four point two point two, research question two point two: what challenges are faced by artifact users?')
+S(L[324]); S(L[325])
+S('Table 5, on page 19, counts the challenges reported by 130 users. In short: a lack of clear instructions for using the artifact, 103; the artifact was no longer accessible, 81; a lack of clear instructions for building it, 79; it could not be built because software, libraries or compilers were unavailable, 69; it could not be run because something was missing, 66; the user had to modify the source code, 60; a run-time error, 55; the user had to re-implement the artifact, 28. Ten had never failed to use an artifact. Please see the PDF for the table.')
+for n in (359,360,361,363,364): S(L[n-1])
+S('Figure 3, on page 20, is a bar chart of available and unavailable artifacts for each year. In short: unavailable artifacts shrink from about a quarter in twenty fourteen to about five per cent in twenty eighteen. Please see the PDF for the chart.')
+S(L[364])
+S(g(366,369))
+S('Figure 4, on page 21, is a funnel for F S E twenty fifteen to twenty eighteen: 281 accepted papers, 196 with artifacts, 74 submitted to the A E C, and 64 accepted. Note that 74 out of 196 is about 38 per cent, while the text reports 26.33 per cent, which matches 74 out of all 281 papers. Please see the PDF for the figure.')
+S(L[369]); S(g(371,374)); S(g(375,377)); S(L[377]); S(L[378]); S(g(380,382)); S(L[382])
+S('End of track four. Next: track five, section five, secondary analysis, from page 24.')
+
+T('05','timperley-05-secondary-analysis','Section 5: secondary analysis with diffusion of innovations','pp. 24–28')
+S('Track five: section five, secondary analysis, pages 24 to 28.')
+S('Section five, secondary analysis. '+re.sub(r'^5 Secondary Analysis ','',L[383]))
+S('Section five point one, innovations. '+re.sub(r'^5\.1 Innovations ','',L[385]))
+for n in (387,388,389): S(L[n-1])
+S('Section five point two, communication channels. '+re.sub(r'^5\.2 Communication Channels ','',L[389]))
+S('Figure 5, on page 26, is a triangle diagram with creators, users and reviewers at the corners, linked by three channels: artifact evaluation and paper review, artifact links, and artifact badges, each annotated with the challenges that affect it. Please see the PDF for the diagram.')
+S('Section five point two point one, artifact evaluation and paper review. '+re.sub(r'^5\.2\.1 Artifact Evaluation and Paper Review ','',L[390]))
+S(g(392,395))
+S('Section five point two point two, artifact links. '+re.sub(r'^5\.2\.2 Artifact Links ','',L[395])); S(L[397])
+S('Section five point two point three, artifact badges. '+re.sub(r'^5\.2\.3 Artifact Badges ','',L[398]))
+S('Section five point three, time. '+re.sub(r'^5\.3 Time ','',L[399])); S(L[400]); S(L[401])
+S('Section five point four, social system. '+re.sub(r'^5\.4 Social System ','',g(403,405))); S(L[405])
+S('End of track five. Next: track six, section six, recommendations, from page 28.')
+
+T('06','timperley-06-recommendations','Section 6: recommendations R1 to R8','pp. 28–35')
+S('Track six: section six, recommendations, pages 28 to 35.')
+S('Section six, recommendations. '+re.sub(r'^6 Recommendations ','',L[406])); S(L[407])
+S('Table 6, on pages 29 and 30, printed sideways, lists the eight recommendations with their sub-points, the challenges each tackles, the target groups, and supporting literature, which includes Collberg and Proebsting, Heumüller and colleagues, and Hermann and colleagues. R1 to R3 target creators and their advisors, R4 targets reviewers, R5 and R6 process organisers, and R7 and R8 community leaders. Please see the PDF for the full table.')
+S('Recommendation one: describe the contents, structure, and purpose of artifacts. '+re.sub(r'^6\.1 R1: Describe the Contents, Structure, and Purpose of Artifacts ','',L[408]))
+S(g(410,496)); S(L[496])
+S('Recommendation two: create a self-contained artifact. '+re.sub(r'^6\.2 R2: Create a Self-Contained Artifact ','',L[497]))
+S('Recommendation three: establish a plan for creating and sharing artifacts. '+re.sub(r'^6\.3 R3: Establish a Plan for Creating and Sharing Artifacts ','',L[498]))
+S(g(500,503)); S(L[503])
+S('Recommendation four: obtain and use a clear rubric to evaluate artifacts. '+re.sub(r'^6\.4 R4: Obtain and Use a Clear Rubric to Evaluate Artifacts ','',L[504])); S(L[505])
+S('Recommendation five: align author and reviewer expectations. '+re.sub(r'^6\.5 R5: Align Author and Reviewer Expectations ','',g(507,510)))
+S('Recommendation six: reduce the opportunity cost of reviewing. '+re.sub(r'^6\.6 R6: Reduce the Opportunity Cost of Reviewing ','',L[510]))
+S(g(512,514)); S(L[514])
+S('Recommendation seven: recognise and fund artifact-related activities. '+re.sub(r'^6\.7 R7: Recognize and Fund Artifact-Related Activites ','',L[515]))
+S('Recommendation eight: establish a long-term strategy for artifact sharing and evaluation. '+re.sub(r'^6\.8 R8: Establish a Long-Term Strategy for Artifact Sharing and Evaluation ','',L[516])); S(L[517]); S(L[519])
+S('End of track six. Next: track seven, section seven, related work, from page 35.')
+
+T('07','timperley-07-related-work','Section 7: related work','pp. 35–37')
+S('Track seven: section seven, related work, pages 35 to 37.')
+S('Section seven point one, replicability. '+re.sub(r'^7 Related Work 7\.1 Replicability ','',L[520]))
+S('Section seven point two, existing recommendations. '+re.sub(r'^7\.2 Existing Recommendations ','',L[521]).rstrip(' (')+' '+re.sub(r'^Timperley et al\. 2018; Fursin et al\. 2016\)\. ','',L[523]))
+S(L[524])
+S('Section seven point three, artifact studies. '+re.sub(r'^7\.3 Artifact Studies ','',L[525]))
+for n in (527,528,530,531,532): S(L[n-1])
+S('Section seven point four, experience reports. '+re.sub(r'^7\.4 Experience Reports ','',L[532]))
+S('That is the end of the main text. Section eight, the conclusion, was already read in track one, so it is skipped here. Also skipped: the ethics declaration, the references on pages 38 to 41, and the author details.')
+S('End of track seven, and end of the paper.')
+
+txt='\n'.join(P)
+R=[(r'\bDoI\b','Diffusion of Innovations'),(r'\(Diffusion of Innovations\)',''),(r'\bIS\b','Implementation Science'),(r'\(Implementation Science\)',''),
+ (r'\bAECs\b','A E Cs'),(r'\bAEC\b','A E C'),(r'\bAE\b','A E'),(r'\bACM\b','A C M'),(r'\bICSE\b','I C S E'),(r'\bFSE\b','F S E'),(r'\bASE\b','A S E'),(r'\bEMSE\b','E M S E'),
+ (r'\bVMs\b','V Ms'),(r'\bVM\b','V M'),(r'\bURLs\b','U R Ls'),(r'\bURL\b','U R L'),(r'\bVCS\b','version control'),(r'\bIRB\b','I R B'),(r'\bNSF\b','N S F'),(r'\bNIH\b','N I H'),(r'\bEPSRC\b','E P S R C'),(r'\bCRA\b','C R A'),
+ (r'\(IP\) ',''),(r'\bDMPs?\b','data management plan'),(r'\bREADME\b','read-me'),(r'Ph\.D\.','PhD'),(r'\bRQ(\d)\.(\d)\b',r'research question \1 point \2'),(r'\bRQ(\d)\b',r'research question \1'),
+ (r'\bP(\d+)\b',r'participant \1'),(r'∼',' about '),(r'\[\.\.\.\]',''),(r'\[(\w)\]',r'\1'),(r'\[([^\]]*)\]',r'\1'),(r'\s*\((?:see )?Sections? [\d.]+(?:\)|,[^)]*\))',''),
+ (r'\s*\((?:Fig\.|Table) \d+\)',''),(r'Fig\. (\d)',r'Figure \1'),(r' et al\.(?= )',' and colleagues'),(r'\(c\.f\., [^)]*\)',''),(r' \(Kluyver and colleagues \)',''),
+ (r'\s*\(\d{4}[a-z]?(?:, \d{4}[a-z]?)*\)',''),(r'\(Stodden 2009a, b\)',''),(r'(\w)(\d)(?=[ ,.]|$)',lambda m: m.group(0) if m.group(1).isupper() or m.group(1).isdigit() else m.group(1)),
+ (r'“|”','"'),(r'’','\''),(r'\s+([,.])',r'\1'),(r' {2,}',' '),(r'(\d)–(\d)',r'\1 to \2')]
+for a,b in R: txt=re.sub(a,b,txt,flags=re.M)
+open(sys.argv[2],'w').write(txt+'\n')

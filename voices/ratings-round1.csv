@@ -1,0 +1,111 @@
+no,model,speaker,sex,accent,length_scale,rating
+1,en_GB-alan-medium,,male,Southern English,0.664,medium
+2,en_GB-alba-medium,,female,Scottish-leaning,1.02,good
+3,en_GB-cori-high,,female,Southern English,0.808,bad
+4,en_GB-jenny_dioco-medium,,female,Southern English,0.757,good
+5,en_GB-northern_english_male-medium,,male,Northern English,0.897,medium
+6,en_GB-southern_english_female-low,,female,Southern English,0.998,bad
+7,en_GB-aru-medium,01,unknown,British (mixed),0.61,bad
+8,en_GB-aru-medium,02,unknown,British (mixed),0.874,medium
+9,en_GB-aru-medium,03,unknown,British (mixed),0.703,bad
+10,en_GB-aru-medium,04,unknown,British (mixed),0.812,medium
+11,en_GB-aru-medium,05,unknown,British (mixed),0.891,medium
+12,en_GB-aru-medium,06,unknown,British (mixed),0.847,bad
+13,en_GB-aru-medium,07,unknown,British (mixed),0.907,medium
+14,en_GB-aru-medium,08,unknown,British (mixed),0.883,medium
+15,en_GB-aru-medium,09,unknown,British (mixed),0.723,bad
+16,en_GB-aru-medium,10,unknown,British (mixed),0.937,bad
+17,en_GB-aru-medium,11,unknown,British (mixed),0.81,medium
+18,en_GB-aru-medium,12,unknown,British (mixed),0.91,medium
+19,en_GB-semaine-medium,prudence,female,British (expressive),0.851,bad
+20,en_GB-semaine-medium,spike,male,British (expressive),0.856,medium
+21,en_GB-semaine-medium,obadiah,male,British (expressive),0.699,bad
+22,en_GB-semaine-medium,poppy,female,British (expressive),1.022,bad
+23,en_GB-vctk-medium,p225,female,English,1.058,medium
+24,en_GB-vctk-medium,p226,male,English,0.938,medium
+25,en_GB-vctk-medium,p227,male,English,0.981,bad
+26,en_GB-vctk-medium,p228,female,English,0.948,medium
+27,en_GB-vctk-medium,p229,female,English,1.112,medium
+28,en_GB-vctk-medium,p230,female,English,0.93,bad
+29,en_GB-vctk-medium,p231,female,English,1.238,bad
+30,en_GB-vctk-medium,p232,male,English,1.089,bad
+31,en_GB-vctk-medium,p233,female,English,1.035,bad
+32,en_GB-vctk-medium,p234,female,Scottish,1.028,medium
+33,en_GB-vctk-medium,p236,female,English,1.158,medium
+34,en_GB-vctk-medium,p237,male,Scottish,1.058,medium
+35,en_GB-vctk-medium,p238,female,Northern Irish,1.052,bad
+36,en_GB-vctk-medium,p239,female,English,1.14,bad
+37,en_GB-vctk-medium,p240,female,English,1.054,good
+38,en_GB-vctk-medium,p241,male,Scottish,0.999,bad
+39,en_GB-vctk-medium,p243,male,English,0.976,medium
+40,en_GB-vctk-medium,p244,female,English,1.051,medium
+41,en_GB-vctk-medium,p245,male,Irish,0.872,medium
+42,en_GB-vctk-medium,p246,male,Scottish,0.888,medium
+43,en_GB-vctk-medium,p247,male,Scottish,1.07,medium
+44,en_GB-vctk-medium,p248,female,Indian,1.067,bad
+45,en_GB-vctk-medium,p249,female,Scottish,0.998,good
+46,en_GB-vctk-medium,p250,female,English,1.291,bad
+47,en_GB-vctk-medium,p251,male,Indian,1.07,medium
+48,en_GB-vctk-medium,p252,male,Scottish,1.068,medium
+49,en_GB-vctk-medium,p253,female,Welsh,1.032,bad
+50,en_GB-vctk-medium,p254,male,English,1.001,bad
+51,en_GB-vctk-medium,p255,male,Scottish,1.117,medium
+52,en_GB-vctk-medium,p256,male,English,0.89,medium
+53,en_GB-vctk-medium,p257,female,English,1.415,medium
+54,en_GB-vctk-medium,p258,male,English,1.015,medium
+55,en_GB-vctk-medium,p259,male,English,0.941,bad
+56,en_GB-vctk-medium,p260,male,Scottish,1.187,good
+57,en_GB-vctk-medium,p261,female,Northern Irish,1.027,bad
+58,en_GB-vctk-medium,p262,female,Scottish,0.918,medium
+59,en_GB-vctk-medium,p263,male,Scottish,1.035,bad
+60,en_GB-vctk-medium,p264,female,Scottish,1.059,bad
+61,en_GB-vctk-medium,p265,female,Scottish,0.871,medium
+62,en_GB-vctk-medium,p266,female,Irish,1.047,bad
+63,en_GB-vctk-medium,p267,female,English,0.991,medium
+64,en_GB-vctk-medium,p268,female,English,1.001,medium
+65,en_GB-vctk-medium,p269,female,English,0.99,medium
+66,en_GB-vctk-medium,p270,male,English,0.906,medium
+67,en_GB-vctk-medium,p271,male,Scottish,0.896,bad
+68,en_GB-vctk-medium,p272,male,Scottish,1.023,medium
+69,en_GB-vctk-medium,p273,male,English,1.1,medium
+70,en_GB-vctk-medium,p274,male,English,0.936,medium
+71,en_GB-vctk-medium,p275,male,Scottish,1.092,good
+72,en_GB-vctk-medium,p276,female,English,0.955,medium
+73,en_GB-vctk-medium,p277,female,English,0.936,bad
+74,en_GB-vctk-medium,p278,male,English,1.076,medium
+75,en_GB-vctk-medium,p279,male,English,1.273,medium
+76,en_GB-vctk-medium,p280,unknown,unknown,1.039,medium
+77,en_GB-vctk-medium,p281,male,Scottish,0.964,medium
+78,en_GB-vctk-medium,p282,female,English,1.014,medium
+79,en_GB-vctk-medium,p283,female,Irish,1.051,bad
+80,en_GB-vctk-medium,p284,male,Scottish,1.187,medium
+81,en_GB-vctk-medium,p285,male,Scottish,1.052,bad
+82,en_GB-vctk-medium,p286,male,English,0.929,bad
+83,en_GB-vctk-medium,p287,male,English,1.033,medium
+84,en_GB-vctk-medium,p288,female,Irish,1.07,medium
+85,en_GB-vctk-medium,p292,male,Northern Irish,0.945,bad
+86,en_GB-vctk-medium,p293,female,Northern Irish,1.035,bad
+87,en_GB-vctk-medium,p295,female,Irish,1.096,bad
+88,en_GB-vctk-medium,p298,male,Irish,1.189,medium
+89,en_GB-vctk-medium,p302,male,Canadian,1.228,medium
+90,en_GB-vctk-medium,p303,female,Canadian,1.056,medium
+91,en_GB-vctk-medium,p304,male,Northern Irish,1.074,bad
+92,en_GB-vctk-medium,p307,female,Canadian,0.945,bad
+93,en_GB-vctk-medium,p312,female,Canadian,0.958,bad
+94,en_GB-vctk-medium,p313,female,Irish,1.114,medium
+95,en_GB-vctk-medium,p314,female,South African,0.976,bad
+96,en_GB-vctk-medium,p316,male,Canadian,0.933,bad
+97,en_GB-vctk-medium,p317,female,Canadian,1.001,bad
+98,en_GB-vctk-medium,p323,female,South African,0.969,bad
+99,en_GB-vctk-medium,p326,male,Australian,0.961,bad
+100,en_GB-vctk-medium,p335,female,New Zealand,0.943,medium
+101,en_GB-vctk-medium,p336,female,South African,1.028,medium
+102,en_GB-vctk-medium,p340,female,Irish,1.067,bad
+103,en_GB-vctk-medium,p343,female,Canadian,0.955,bad
+104,en_GB-vctk-medium,p347,male,South African,0.905,medium
+105,en_GB-vctk-medium,p351,female,Northern Irish,0.95,bad
+106,en_GB-vctk-medium,p363,male,Canadian,1.083,bad
+107,en_GB-vctk-medium,p364,male,Irish,0.791,bad
+108,en_GB-vctk-medium,p374,male,Australian,0.876,bad
+109,en_GB-vctk-medium,p376,male,Indian,1.033,medium
+110,en_GB-vctk-medium,s5,unknown,unknown,1.054,medium

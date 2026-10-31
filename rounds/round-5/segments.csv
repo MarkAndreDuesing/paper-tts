@@ -1,0 +1,29 @@
+voice_no,model,speaker,track,start,end,first_words,chars
+24,en_GB-vctk-medium,p226,olszewski-01-survey,0.0,169.7,"Olszewski, Lu, Stillman, Warren, Kitroser, Pascual, Ukirde, Butler",3046
+61,en_GB-vctk-medium,p265,olszewski-01-survey,172.7,339.2,As a result of prioritizing exploratory over confirmatory,3027
+52,en_GB-vctk-medium,p256,olszewski-01-survey,342.2,503.9,We note that conducting this study required extensive,2998
+2,en_GB-alba-medium,,olszewski-01-survey,506.9,545.1,"Table 1, page 4: the variables recorded for",567
+2,en_GB-alba-medium,,olszewski-02-background,0.0,123.6,"Track two: section two, background, and section three,",2337
+43,en_GB-vctk-medium,p247,olszewski-02-background,126.6,291.1,"Due to the statistical nature of observation, a",3000
+27,en_GB-vctk-medium,p229,olszewski-02-background,294.1,340.9,A null hypothesis claims that there is no,823
+27,en_GB-vctk-medium,p229,olszewski-03-method,0.0,126.3,"Track three: section four, methodology, pages 3 to",2349
+48,en_GB-vctk-medium,p252,olszewski-03-method,129.3,293.8,We enact a consensus protocol where each year,2976
+37,en_GB-vctk-medium,p240,olszewski-03-method,296.8,457.7,The training procedure is also measured on a,2958
+51,en_GB-vctk-medium,p255,olszewski-03-method,460.7,513.5,Raff's study replicated the experiments by the paper's,918
+51,en_GB-vctk-medium,p255,olszewski-04-indirect-study,0.0,117.6,"Track four: section five, the indirect study, pages",2034
+40,en_GB-vctk-medium,p244,olszewski-04-indirect-study,120.6,288.7,"Figures 2 and 3, on page 5, are",3070
+56,en_GB-vctk-medium,p260,olszewski-04-indirect-study,291.7,459.5,"We see similar trends across Usenix, C C",3028
+4,en_GB-jenny_dioco-medium,,olszewski-04-indirect-study,462.5,607.2,"Section five point three, experiment.",2626
+4,en_GB-jenny_dioco-medium,,olszewski-05-direct-study,0.0,19.0,"Track five: section six, the direct study, pages",331
+76,en_GB-vctk-medium,p280,olszewski-05-direct-study,22.0,183.3,"In this section, we summarize the results of",2914
+63,en_GB-vctk-medium,p267,olszewski-05-direct-study,186.3,349.6,One problem we encounter is that some artifacts,2949
+80,en_GB-vctk-medium,p284,olszewski-05-direct-study,352.6,519.8,"If they do not include their complete data,",3009
+65,en_GB-vctk-medium,p269,olszewski-05-direct-study,522.8,682.2,There are not enough samples to test for,2930
+88,en_GB-vctk-medium,p298,olszewski-05-direct-study,685.2,815.5,Based on the difference between our tests and,2360
+88,en_GB-vctk-medium,p298,olszewski-06-recommendations-and-limitations,0.0,34.0,"Track six: section seven, recommendations, and section eight,",573
+72,en_GB-vctk-medium,p276,olszewski-06-recommendations-and-limitations,37.0,201.2,Certain packages became deprecated or were no longer,2972
+20,en_GB-semaine-medium,spike,olszewski-06-recommendations-and-limitations,204.2,367.2,"While some read-mes contained no context or instructions,",3030
+94,en_GB-vctk-medium,p313,olszewski-06-recommendations-and-limitations,370.2,533.5,"Recommendation: When approaching making projects reproducible, researchers need",2982
+104,en_GB-vctk-medium,p347,olszewski-06-recommendations-and-limitations,536.5,672.0,"Further, there is a risk for any reviewer",2561
+104,en_GB-vctk-medium,p347,olszewski-07-related-work,0.0,23.3,"Track seven: section nine, related work, page 12.",402
+101,en_GB-vctk-medium,p336,olszewski-07-related-work,26.3,197.2,We outline notable contributions in different areas and,2995

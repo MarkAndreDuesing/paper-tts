@@ -1,0 +1,28 @@
+voice_no,model,speaker,track,start,end,first_words,chars
+24,en_GB-vctk-medium,p226,winter-01-survey,0.0,162.7,"Winter, Timperley, Hermann, Cito, Bell, Hilton and Beyer,",2911
+61,en_GB-vctk-medium,p265,winter-01-survey,165.7,321.7,In the software community the artifactevaluation process started,2825
+52,en_GB-vctk-medium,p256,winter-01-survey,324.7,430.3,From these insight we derive several suggestions how,1750
+52,en_GB-vctk-medium,p256,winter-02-background-and-subjects,0.0,57.9,"Track two: section two, background and related work,",1074
+2,en_GB-alba-medium,,winter-02-background-and-subjects,60.9,217.0,"A supplementing research artifact is ""a digital object",2810
+43,en_GB-vctk-medium,p247,winter-02-background-and-subjects,220.0,377.7,We particularly pick up on the quality aspect,2895
+27,en_GB-vctk-medium,p229,winter-02-background-and-subjects,380.7,535.4,Before we discuss the relevance of these questions,2841
+48,en_GB-vctk-medium,p252,winter-02-background-and-subjects,538.4,593.6,"This collection includes short papers, as for several",929
+48,en_GB-vctk-medium,p252,winter-03-rq1-visibility,0.0,106.4,"Track three: section four, research question one, pages",1947
+37,en_GB-vctk-medium,p240,winter-03-rq1-visibility,109.4,262.5,To rule out false positive matches due to,2792
+51,en_GB-vctk-medium,p255,winter-03-rq1-visibility,265.5,424.5,"We, thus, analyze the impact of these variables",2821
+40,en_GB-vctk-medium,p244,winter-03-rq1-visibility,427.5,471.5,"Moreover, the significant effects we observe are limited",741
+40,en_GB-vctk-medium,p244,winter-04-rq2-availability,0.0,115.0,"Track four: section five, research question two, pages",2084
+56,en_GB-vctk-medium,p260,winter-04-rq2-availability,118.0,283.1,Artifact links from Conference Publishing Consulting are extracted,2979
+4,en_GB-jenny_dioco-medium,,winter-04-rq2-availability,286.1,444.4,"Section five point two, results.",2827
+76,en_GB-vctk-medium,p280,winter-04-rq2-availability,447.4,599.5,"However, we were able to find GitHub repositories",2802
+63,en_GB-vctk-medium,p267,winter-04-rq2-availability,602.5,747.3,The left side of the table lists the,2644
+63,en_GB-vctk-medium,p267,winter-05-rq3-to-rq5,0.0,11.1,"Track five: sections six to eight, research questions",193
+80,en_GB-vctk-medium,p284,winter-05-rq3-to-rq5,14.1,176.1,If an artifact continues to be maintained and,2914
+65,en_GB-vctk-medium,p269,winter-05-rq3-to-rq5,179.1,334.8,All p values are below 0.01 and the,2857
+88,en_GB-vctk-medium,p298,winter-05-rq3-to-rq5,337.8,497.5,61) than for intersecting author lists (96 vs.,2856
+72,en_GB-vctk-medium,p276,winter-05-rq3-to-rq5,500.5,658.1,"For Git repository links, we attempt to checkout",2849
+20,en_GB-semaine-medium,spike,winter-05-rq3-to-rq5,661.1,818.1,"Overall, the results show that A E artifacts",2885
+94,en_GB-vctk-medium,p313,winter-05-rq3-to-rq5,821.1,858.0,Please see the PDF for the table.,596
+94,en_GB-vctk-medium,p313,winter-06-threats-and-discussion,0.0,119.2,"Track six: section nine, threats to validity, and",2222
+104,en_GB-vctk-medium,p347,winter-06-threats-and-discussion,122.2,273.9,We have taken great care to analyze potential,2755
+101,en_GB-vctk-medium,p336,winter-06-threats-and-discussion,276.9,443.9,"With a decade of artifact publications, the addition",3077
