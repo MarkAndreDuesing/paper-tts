@@ -30,14 +30,13 @@ voices, listed with sex, approximate accent and calibration in
 | 2 | Heumüller et al. 2020, 32 pp. | 61 | ~68 s | 5 good, 23 medium, 33 bad → 28 kept (`ratings-round2.csv`) |
 | 3 | Timperley et al. 2021, 41 pp. | 28, pace 0.9 | ~3.5 min | 2 good, 20 medium, 6 bad → 22 kept (`ratings-round3.csv`) |
 | 4 | Hermann et al. 2020, 12 pp. | 28 | ~2.4 min | skipped, no ratings |
-| 5 | Olszewski et al. 2023, 27 pp. | 22, mixed order, 3 s pauses | ~2.7 min | open |
-| 6 | Winter et al. 2022, 12 pp. | 22, mixed order, 3 s pauses | ~2.6 min | open |
+| 5 | Olszewski et al. 2023, 27 pp. | 22, mixed order, 3 s pauses | ~2.7 min | 0 good, 15 medium, 7 bad → 15 kept (`ratings-round5.csv`) |
+| 6 | Winter et al. 2022, 12 pp. | 15 (regenerated after round 5), mixed order, 3 s pauses | ~3.9 min | open |
 
 Round 1 used the first, word-count based split (some voices got only a few
 seconds); from round 2 snippets are balanced by speaking time.
 
-## Current shortlist (22 voices, `voices/shortlist-current.csv`)
+## Current shortlist (15 voices, `voices/shortlist-current.csv`)
 
-Good in round 3: vctk p240 (female, English), vctk p265 (female, Scottish).
-Medium: alba, jenny_dioco, semaine spike, and vctk p226, p229, p244, p247, p252,
-p255, p256, p260, p267, p269, p276, p280, p284, p298, p313, p336, p347.
+All rated medium in round 5: alba, jenny_dioco, and vctk p240, p247, p252, p255,
+p256, p260, p269, p276, p280, p284, p298, p313, p347.
