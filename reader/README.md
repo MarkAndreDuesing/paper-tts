@@ -16,6 +16,9 @@ Listen to a paper while it is highlighted in the PDF itself, sentence by sentenc
   bad, not rated yet, good only, …). Copy as CSV gives the same columns as
   `voices/ratings-roundN.csv`, so the result can become the next
   `voices/shortlist-current.csv`. Ratings stay in the browser until copied.
+- **Download:** the Download button (and MP3 in the Voices panel) saves a voice
+  as one MP3 for offline listening. In a claude.ai artifact it comes inside a
+  `.zip`, because artifacts may not save `.mp3` files.
 
 This is separate from the listening tracks in `docs/workflow.md`: no reading
 plan, no spoken descriptions of tables or figures, no manual script.
@@ -64,7 +67,11 @@ Output folder: `index.html`, `paper.pdf`, `sync.js` (and the same data as
 parts and each sentence's start and end), `audio/<voice>/partNN.mp3`,
 `sentences.json`, `sentences.txt`.
 
-Built example: `rounds/round-7/reader/` (all 14 shortlist voices).
+Only `sync.json` is kept in git (`rounds/round-7/reader/`: 14 voices,
+`rounds/round-8/reader/`: p240); the audio and the other files are rebuilt with
+`build_reader.py`, which takes the sentences from `sync.json`, so hand edits
+and the voice list carry over. The built pages are published as claude.ai
+artifacts.
 
 ## Opening it
 
@@ -82,4 +89,4 @@ Built example: `rounds/round-7/reader/` (all 14 shortlist voices).
   sentences. Check `sentences.txt`.
 - Abbreviations are spelled out by a simple rule (all-caps words of up to five
   letters: "SED" → "S E D"); a few may sound wrong.
-- No offline saving yet (the rating sheet has it; it could be added).
+- The downloaded MP3 has no highlighting; that needs the page.
