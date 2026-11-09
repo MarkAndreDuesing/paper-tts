@@ -10,7 +10,6 @@ no,model,speaker,sex,accent,speech_s,length_scale
 65,en_GB-vctk-medium,p269,female,English,12.78,1.149
 72,en_GB-vctk-medium,p276,female,English,13.24,0.957
 76,en_GB-vctk-medium,p280,unknown,unknown,12.18,1.037
-80,en_GB-vctk-medium,p284,male,Scottish,10.66,1.396
 88,en_GB-vctk-medium,p298,male,Irish,10.64,1.251
 94,en_GB-vctk-medium,p313,female,Irish,11.36,1.165
 104,en_GB-vctk-medium,p347,male,South African,13.98,0.849
