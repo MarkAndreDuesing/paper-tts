@@ -35,6 +35,10 @@ voices, listed with sex, approximate accent and calibration in
 | 7 | Broneske et al. 2024, 24 pp. | 14, mixed order, 3 s pauses | ~4.5 min | open |
 | 8 | Guevara-Vega et al. 2024, 16 pp. | 14, mixed order, 3 s pauses | ~4.2 min | open |
 
+Rounds can also be rated in the reader (`reader/`): `rounds/round-7/reader/`
+has the whole paper in each of the 14 shortlist voices, with Bad / Medium /
+Good per voice and a CSV export in the same format.
+
 Round 1 used the first, word-count based split (some voices got only a few
 seconds); from round 2 snippets are balanced by speaking time.
 

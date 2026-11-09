@@ -19,6 +19,7 @@
   --mark-edge: rgba(214, 160, 0, 0.55);
   --hover: rgba(35, 87, 126, 0.12);   /* sentence under the pointer */
   --tick: #8a94a3;
+  --bad: #b3413a; --mid: #e3b341; --good: #2f7d4f;   /* voice ratings */
   --shadow: 0 1px 3px rgba(20, 30, 45, .18), 0 6px 18px rgba(20, 30, 45, .08);
   --font-ui: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
   --font-num: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
@@ -108,6 +109,30 @@ footer { background: var(--panel); border-top: 1px solid var(--line);
 .notice code { font-family: var(--font-num); font-size: 13px; }
 kbd { font-family: var(--font-num); font-size: 11px; border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; }
 .keys { font-size: 12px; color: var(--muted); }
+
+/* voice rating */
+.rate { display: inline-flex; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+.rate button { border: 0; background: transparent; padding: 4px 8px; cursor: pointer; font-size: 13px; color: var(--muted); }
+.rate button + button { border-left: 1px solid var(--line); }
+.rate button[aria-pressed="true"][data-r="bad"] { background: var(--bad); color: #fff; }
+.rate button[aria-pressed="true"][data-r="medium"] { background: var(--mid); color: #1d232b; }
+.rate button[aria-pressed="true"][data-r="good"] { background: var(--good); color: #fff; }
+#panel { position: absolute; top: 0; right: 0; bottom: 0; width: min(440px, 100%); z-index: 6; overflow: auto;
+  background: var(--panel); border-left: 1px solid var(--line); box-shadow: var(--shadow);
+  padding-block: 14px 24px; padding-left: 16px; padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: flex; flex-direction: column; gap: 12px; }
+#panel h2 { font-size: 16px; margin: 0; display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+#panel p { margin: 0; font-size: 13px; color: var(--muted); line-height: 1.45; }
+.vlist { display: grid; gap: 2px; }
+.vrow { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 8px; padding: 6px 8px; border-radius: 6px; }
+.vrow.on { background: var(--hover); }
+.vrow .who { min-width: 0; background: none; border: 0; text-align: left; cursor: pointer; padding: 0; }
+.vrow .who b { display: block; font-size: 14px; }
+.vrow .who span { font-size: 12px; color: var(--muted); }
+.counts { font-family: var(--font-num); font-size: 12px; color: var(--muted); }
+#out { width: 100%; min-height: 120px; font-family: var(--font-num); font-size: 11px; background: var(--desk);
+  color: var(--ink); border: 1px solid var(--line); border-radius: 6px; padding: 8px; resize: vertical; box-sizing: border-box; }
+.exrow { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
 @media (max-width: 640px) {
   .keys, .pageno, .page .num { display: none; }
   .row.main { flex-wrap: wrap; }
@@ -121,6 +146,10 @@ kbd { font-family: var(--font-num); font-size: 11px; border: 1px solid var(--lin
   <h1 id="title">Paper Reader</h1>
   <div class="tools">
     <label class="field" for="voice">Voice <select id="voice"></select></label>
+    <span class="rate" id="rate" role="group" aria-label="Rate this voice (keys 1, 2, 3)">
+      <button data-r="bad" aria-pressed="false" title="Bad (1)">Bad</button><button data-r="medium" aria-pressed="false" title="Medium (2)">Medium</button><button data-r="good" aria-pressed="false" title="Good (3)">Good</button>
+    </span>
+    <button class="btn" id="voicesBtn" aria-expanded="false">Voices</button>
     <label class="field" for="speed">Speed <select id="speed">
       <option value="0.8">0.8×</option><option value="0.9">0.9×</option><option value="1" selected>1.0×</option>
       <option value="1.1">1.1×</option><option value="1.2">1.2×</option><option value="1.3">1.3×</option>
@@ -138,6 +167,24 @@ kbd { font-family: var(--font-num); font-size: 11px; border: 1px solid var(--lin
 <div class="wrap">
   <main id="main"><div id="pages"></div></main>
   <button id="back" hidden>Back to reading position</button>
+  <aside id="panel" hidden aria-label="Voices">
+    <h2>Voices <button class="btn" id="closePanel">Close</button></h2>
+    <p>Rate each voice while you listen (keys 1, 2, 3 rate the current one). Ratings stay in this browser; copy them out for the voice list (<code>voices/ratings-roundN.csv</code>).</p>
+    <div class="exrow">
+      <label class="field" for="vfilter">Show in the voice menu <select id="vfilter">
+        <option value="all">All voices</option><option value="notbad">All but bad</option>
+        <option value="unrated">Not rated yet</option><option value="good">Good only</option><option value="goodmed">Good and medium</option>
+      </select></label>
+      <span class="counts" id="vcounts"></span>
+    </div>
+    <div class="vlist" id="vlist"></div>
+    <div class="exrow">
+      <button class="btn" id="copyCsv">Copy as CSV</button>
+      <button class="btn" id="copyMd">Copy as Markdown</button>
+      <span class="counts" id="copyMsg" aria-live="polite"></span>
+    </div>
+    <textarea id="out" readonly aria-label="Exported ratings"></textarea>
+  </aside>
   <div class="notice" id="notice" hidden><div id="noticeBody"></div></div>
 </div>
 
@@ -158,7 +205,7 @@ kbd { font-family: var(--font-num); font-size: 11px; border: 1px solid var(--lin
       <div id="tip" hidden></div>
     </div>
     <span class="time" id="tdur">0:00</span>
-    <span class="keys"><kbd>space</kbd> play · <kbd>←</kbd><kbd>→</kbd> sentence</span>
+    <span class="keys"><kbd>space</kbd> play · <kbd>←</kbd><kbd>→</kbd> sentence · <kbd>1</kbd><kbd>2</kbd><kbd>3</kbd> rate voice</span>
   </div>
 </footer>
 
@@ -442,12 +489,85 @@ kbd { font-family: var(--font-num); font-size: 11px; border: 1px solid var(--lin
   $("prev").onclick = () => jumpTo(cur - 1);
   $("next").onclick = () => jumpTo(cur + 1);
   $("speed").onchange = () => { audio.playbackRate = +$("speed").value; store.set("reader-speed", $("speed").value); };
-  $("voice").onchange = () => {
+  function setVoice(id) {
+    if (voice && id === voice.id) return;
     const keep = Math.max(cur, 0), play = playing;
-    audio.pause(); voice = D.voices.find((v) => v.id === $("voice").value); part = -1;
-    store.set("reader-voice", voice.id); buildTicks();
+    audio.pause(); voice = D.voices.find((v) => v.id === id); part = -1;
+    store.set("reader-voice", voice.id); buildTicks(); fillVoiceMenu(); showRating();
     cur = -1; setCurrent(keep, false); seekTo(voice.times[keep][0], play);
-  };
+  }
+  $("voice").onchange = () => setVoice($("voice").value);
+
+  // ---------- voice ratings (same scale and CSV columns as the rating sheets) ----------
+  let ratings = {};
+  const rKey = () => "reader-ratings-" + (D.text_hash || D.title);
+  const passes = (v) => { const r = ratings[v.no] || "", f = $("vfilter").value;
+    return f === "all" || (f === "notbad" && r !== "bad") || (f === "unrated" && !r) || (f === "good" && r === "good")
+      || (f === "goodmed" && (r === "good" || r === "medium")); };
+  const mark = { good: "Good", medium: "Medium", bad: "Bad" };
+  function fillVoiceMenu() {
+    const vs = $("voice"); vs.innerHTML = "";
+    D.voices.filter((v) => passes(v) || v.id === voice.id).forEach((v) => {
+      const o = document.createElement("option"); o.value = v.id;
+      o.textContent = v.label + (ratings[v.no] ? " · " + mark[ratings[v.no]] : ""); vs.appendChild(o); });
+    vs.value = voice.id;
+  }
+  function showRating() {
+    const r = ratings[voice.no] || "";
+    document.querySelectorAll("#rate button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.r === r)));
+  }
+  function rate(no, r) {
+    if (ratings[no] === r) delete ratings[no]; else ratings[no] = r;
+    store.set(rKey(), ratings); fillVoiceMenu(); showRating(); fillPanel();
+  }
+  document.querySelectorAll("#rate button").forEach((b) => b.onclick = () => rate(voice.no, b.dataset.r));
+  function fillPanel() {
+    const list = $("vlist"); list.innerHTML = "";
+    D.voices.forEach((v) => {
+      const row = document.createElement("div"); row.className = "vrow" + (v.id === voice.id ? " on" : "");
+      const who = document.createElement("button"); who.className = "who"; who.title = "Listen to this voice";
+      who.innerHTML = "<b></b><span></span>";
+      who.querySelector("b").textContent = v.label.replace(/ \(.*\)$/, "");
+      who.querySelector("span").textContent = [v.sex, v.accent].filter((x) => x && x !== "unknown").join(", ") || "—";
+      who.onclick = () => setVoice(v.id);
+      const rt = document.createElement("span"); rt.className = "rate";
+      ["bad", "medium", "good"].forEach((r) => { const b = document.createElement("button"); b.dataset.r = r; b.textContent = mark[r];
+        b.setAttribute("aria-pressed", String(ratings[v.no] === r)); b.setAttribute("aria-label", mark[r] + ": " + v.label);
+        b.onclick = () => rate(v.no, r); rt.appendChild(b); });
+      row.append(who, rt); list.appendChild(row);
+    });
+    const c = { good: 0, medium: 0, bad: 0 }; D.voices.forEach((v) => { if (ratings[v.no]) c[ratings[v.no]]++; });
+    $("vcounts").textContent = c.good + " good · " + c.medium + " medium · " + c.bad + " bad · " +
+      (D.voices.length - c.good - c.medium - c.bad) + " open";
+    $("out").value = exportMode === "md" ? mdText() : csvText();
+  }
+  let exportMode = "csv";
+  const q = (x) => /[",]/.test(x) ? '"' + String(x).replace(/"/g, '""') + '"' : x;
+  function csvText() {
+    return "no,model,speaker,sex,accent,length_scale,rating\n" + D.voices.map((v) =>
+      [v.no, v.model, v.speaker, v.sex, v.accent, v.length_scale, ratings[v.no] || ""].map((x) => q(x == null ? "" : String(x))).join(",")).join("\n") + "\n";
+  }
+  function mdText() {
+    let o = "# Voice ratings – reader, " + D.title + "\n";
+    ["good", "medium", "bad", ""].forEach((r) => {
+      const l = D.voices.filter((v) => (ratings[v.no] || "") === r);
+      if (!l.length) return;
+      o += "\n## " + (r ? mark[r] : "Not rated") + " (" + l.length + ")\n\n";
+      l.forEach((v) => o += "- #" + v.no + " " + v.model + (v.speaker ? " speaker " + v.speaker : "") +
+        " (" + [v.sex, v.accent].filter(Boolean).join(", ") + ")\n");
+    });
+    return o;
+  }
+  async function copyOut(m) {
+    exportMode = m; fillPanel(); const ta = $("out"), msg = $("copyMsg");
+    try { await navigator.clipboard.writeText(ta.value); msg.textContent = "Copied."; }
+    catch (e) { ta.focus(); ta.select(); msg.textContent = "Text selected. Press Ctrl+C or ⌘C to copy."; }
+  }
+  $("copyCsv").onclick = () => copyOut("csv"); $("copyMd").onclick = () => copyOut("md");
+  $("vfilter").onchange = () => { store.set("reader-vfilter", $("vfilter").value); fillVoiceMenu(); };
+  const togglePanel = (open) => { $("panel").hidden = !open; $("voicesBtn").setAttribute("aria-expanded", String(open)); if (open) fillPanel(); };
+  $("voicesBtn").onclick = () => togglePanel($("panel").hidden);
+  $("closePanel").onclick = () => togglePanel(false);
   const zoom = (f) => { const anchor = cur; pageW = Math.max(300, Math.min(2400, (pageW || fitWidth()) * f)); layoutPages(); if (anchor >= 0) scrollToSentence(anchor, false); };
   $("zin").onclick = () => zoom(1.2); $("zout").onclick = () => zoom(1 / 1.2);
   $("zfit").onclick = () => { pageW = null; layoutPages(); if (cur >= 0) scrollToSentence(cur, false); };
@@ -457,6 +577,7 @@ kbd { font-family: var(--font-num); font-size: 11px; border: 1px solid var(--lin
     if (e.key === " " && e.target === document.body || e.key === " " && e.target.closest("main")) { e.preventDefault(); togglePlay(); }
     else if (e.key === "ArrowRight" && !e.target.closest("#tl")) { e.preventDefault(); jumpTo(cur + 1); }
     else if (e.key === "ArrowLeft" && !e.target.closest("#tl")) { e.preventDefault(); jumpTo(cur - 1); }
+    else if (e.key === "1" || e.key === "2" || e.key === "3") rate(voice.no, ["bad", "medium", "good"][+e.key - 1]);
   });
   const posKey = () => "reader-pos-" + (D.text_hash || D.title);
 
@@ -476,9 +597,11 @@ kbd { font-family: var(--font-num); font-size: 11px; border: 1px solid var(--lin
     D = data; S = D.sentences;
     document.title = D.title + " · Paper Reader";
     $("title").textContent = D.title; $("title").title = D.title;
-    const vs = $("voice");
-    D.voices.forEach((v) => { const o = document.createElement("option"); o.value = v.id; o.textContent = v.label; vs.appendChild(o); });
-    const sv = store.get("reader-voice"); voice = D.voices.find((v) => v.id === sv) || D.voices[0]; vs.value = voice.id;
+    ratings = store.get(rKey()) || {};
+    const vf = store.get("reader-vfilter"); if (vf) $("vfilter").value = vf;
+    const sv = store.get("reader-voice"); voice = D.voices.find((v) => v.id === sv) || D.voices[0];
+    fillVoiceMenu(); showRating();
+    if (D.voices.length < 2) { $("rate").hidden = true; $("voicesBtn").hidden = true; }
     const sp = store.get("reader-speed"); if (sp) $("speed").value = sp;
     buildPages(); pages.forEach((p) => io.observe(p.el)); layoutPages(); buildTicks();
     const saved = store.get(posKey());

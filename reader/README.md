@@ -11,6 +11,11 @@ Listen to a paper while it is highlighted in the PDF itself, sentence by sentenc
   Figure and table captions are read; tables themselves are not.
 - Voice menu (all voices built for the paper), speed 0.8–2×, zoom, keyboard
   (space, ← →). The position is remembered in the browser.
+- **Voice ratings:** Bad / Medium / Good next to the voice menu (keys 1, 2, 3),
+  and a Voices panel listing every voice. The menu can be filtered (all but
+  bad, not rated yet, good only, …). Copy as CSV gives the same columns as
+  `voices/ratings-roundN.csv`, so the result can become the next
+  `voices/shortlist-current.csv`. Ratings stay in the browser until copied.
 
 This is separate from the listening tracks in `docs/workflow.md`: no reading
 plan, no spoken descriptions of tables or figures, no manual script.
@@ -26,6 +31,8 @@ python3 reader/pdf_sentences.py paper.pdf out/sentences.json --review out/senten
 
 # 2. audio for one or more voices (numbers from voices/shortlist-current.csv)
 python3 reader/build_reader.py paper.pdf out --voices 37,2
+#    or every voice in the shortlist, four at a time
+python3 reader/build_reader.py paper.pdf out --voices all --jobs 4
 
 # 3. open it
 cd out && python3 -m http.server 8000     # then http://localhost:8000
@@ -40,8 +47,9 @@ cd out && python3 -m http.server 8000     # then http://localhost:8000
 - Options for the text: `--skip-captions`, `--keep-authors`, `--drop-regex
   '^Some boilerplate'` (repeatable).
 - About 1 MB of audio per 4 minutes (32 kbps mono), split into parts of
-  about 10 minutes (`--part-minutes`). Building takes about 1 minute per 20 minutes
-  of speech per voice.
+  about 10 minutes (`--part-minutes`): about 15 MB per voice for an hour.
+  Building takes about 1 minute per 5 minutes of speech per voice;
+  `--jobs 4` builds four voices at once on a 4-core machine.
 
 ## Files
 
@@ -56,8 +64,8 @@ Output folder: `index.html`, `paper.pdf`, `sync.js` (and the same data as
 parts and each sentence's start and end), `audio/<voice>/partNN.mp3`,
 `sentences.json`, `sentences.txt`.
 
-Built examples: `rounds/round-7/reader/` (single column) and
-`rounds/round-6/reader/` (two columns), voices 37 (vctk p240) and 2 (alba).
+Built examples: `rounds/round-7/reader/` (single column, all 14 shortlist
+voices) and `rounds/round-8/reader/` (two columns, voices 37 vctk p240 and 2 alba).
 
 ## Opening it
 

@@ -16,7 +16,7 @@ Steps:
      audio/<voice>/partNN.mp3. Voices that are already built for the same text
      are not generated again, so voices can be added later.
 
---voices takes numbers from the voice list (column `no`, default
+--voices takes numbers from the voice list (or `all`; column `no`, default
 voices/shortlist-current.csv); their `length_scale` calibration is used.
 Open OUTDIR/index.html through a web server (python3 -m http.server) or
 publish the folder as a claude.ai artifact.
@@ -100,9 +100,13 @@ def build_voice(v, sents, outdir, models, speed, bitrate, part_minutes):
         flush(tmp)
     total = part_start
     print(f"  {vid}: {total / 60:.1f} min in {len(parts)} parts")
-    return {"id": vid, "label": voice_label(v), "no": v["no"], "model": v["model"],
-            "speaker": v.get("speaker", ""), "speed": speed, "duration": round(total, 3),
+    return {"id": vid, **voice_meta(v), "speed": speed, "duration": round(total, 3),
             "parts": parts, "times": times}
+
+
+def voice_meta(v):
+    return {"label": voice_label(v), "no": v["no"], "model": v["model"], "speaker": v.get("speaker", ""),
+            "sex": v.get("sex", ""), "accent": v.get("accent", ""), "length_scale": v.get("length_scale", "")}
 
 
 def text_hash(sents):
@@ -120,6 +124,7 @@ def main():
     ap.add_argument("--bitrate", default="32k")
     ap.add_argument("--part-minutes", type=float, default=10)
     ap.add_argument("--title", default="")
+    ap.add_argument("--jobs", type=int, default=1, help="voices generated in parallel")
     ap.add_argument("--re-extract", action="store_true", help="extract sentences again even if sentences.json exists")
     ap.add_argument("--rebuild", action="store_true", help="generate audio again even if it is up to date")
     ap.add_argument("--skip-captions", action="store_true")
@@ -155,17 +160,30 @@ def main():
 
     with open(a.voice_list, newline="") as f:
         vlist = {r["no"]: r for r in csv.DictReader(f)}
-    built = []
-    for no in [x.strip() for x in a.voices.split(",") if x.strip()]:
+    nos = [x.strip() for x in a.voices.split(",") if x.strip()]
+    if nos == ["all"]:
+        nos = list(vlist)
+    built, todo = {}, []
+    for no in nos:
         v = vlist[no]
         vid = voice_id(v)
         if vid in old and not a.rebuild and old[vid].get("speed") == a.speed \
                 and all((out / p["file"]).exists() for p in old[vid]["parts"]):
             print(f"  {vid}: up to date")
-            built.append(old[vid])
-            continue
-        print(f"Generating {vid} ...")
-        built.append(build_voice(v, sents, out, a.models, a.speed, a.bitrate, a.part_minutes))
+            built[no] = {**old[vid], **voice_meta(v)}
+        else:
+            todo.append(v)
+    args = [(v, sents, out, a.models, a.speed, a.bitrate, a.part_minutes) for v in todo]
+    if a.jobs > 1 and len(todo) > 1:
+        from concurrent.futures import ProcessPoolExecutor
+        with ProcessPoolExecutor(a.jobs) as ex:
+            for v, r in zip(todo, ex.map(build_voice, *zip(*args))):
+                built[v["no"]] = r
+    else:
+        for v, x in zip(todo, args):
+            print(f"Generating {voice_id(v)} ...")
+            built[v["no"]] = build_voice(*x)
+    built = [built[no] for no in nos]
 
     title = a.title or next((s["text"].rstrip(".") for s in sents if s["kind"] == "heading"), Path(a.pdf).stem)
     sync = {"title": title, "pdf": "paper.pdf", "text_hash": h, "pages": data["pages"],
