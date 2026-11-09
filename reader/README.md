@@ -64,8 +64,7 @@ Output folder: `index.html`, `paper.pdf`, `sync.js` (and the same data as
 parts and each sentence's start and end), `audio/<voice>/partNN.mp3`,
 `sentences.json`, `sentences.txt`.
 
-Built examples: `rounds/round-7/reader/` (single column, all 14 shortlist
-voices) and `rounds/round-8/reader/` (two columns, voices 37 vctk p240 and 2 alba).
+Built example: `rounds/round-7/reader/` (all 14 shortlist voices).
 
 ## Opening it
 

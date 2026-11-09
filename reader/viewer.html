@@ -57,7 +57,7 @@ select { background: var(--desk); border: 1px solid var(--line); border-radius: 
 main { flex: 1; overflow: auto; position: relative; overscroll-behavior: contain;
   padding-block: 20px 28px;
   padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
-#pages { display: flex; flex-direction: column; align-items: center; gap: 18px; }
+#pages { display: flex; flex-direction: column; align-items: center; gap: 18px; width: max-content; min-width: 100%; }
 .page { position: relative; background: #fff; box-shadow: var(--shadow); max-width: none; flex: none; }
 .page canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
 .page .ov { position: absolute; inset: 0; cursor: text; }
@@ -568,10 +568,34 @@ kbd { font-family: var(--font-num); font-size: 11px; border: 1px solid var(--lin
   const togglePanel = (open) => { $("panel").hidden = !open; $("voicesBtn").setAttribute("aria-expanded", String(open)); if (open) fillPanel(); };
   $("voicesBtn").onclick = () => togglePanel($("panel").hidden);
   $("closePanel").onclick = () => togglePanel(false);
-  const zoom = (f) => { const anchor = cur; pageW = Math.max(300, Math.min(2400, (pageW || fitWidth()) * f)); layoutPages(); if (anchor >= 0) scrollToSentence(anchor, false); };
+
   $("zin").onclick = () => zoom(1.2); $("zout").onclick = () => zoom(1 / 1.2);
-  $("zfit").onclick = () => { pageW = null; layoutPages(); if (cur >= 0) scrollToSentence(cur, false); };
-  let rz = 0; window.addEventListener("resize", () => { clearTimeout(rz); rz = setTimeout(() => { if (!pageW) layoutPages(); }, 150); });
+  // Resize the pages without moving what you are looking at: the highlighted
+  // sentence (or, if it is off screen, the point in the middle of the view)
+  // stays at the same place on screen, with one instant scroll.
+  function relayout() {
+    const mr = main.getBoundingClientRect();
+    let a = null;
+    if (cur >= 0) {
+      const b = S[cur].boxes[0], p = pages[b[0] - 1], r = p.el.getBoundingClientRect();
+      const y = r.top + b[2] / p.h * r.height;
+      if (y > mr.top && y < mr.bottom) a = { p, fy: b[2] / p.h, fx: b[1] / p.w, vy: y - mr.top, vx: r.left + b[1] / p.w * r.width - mr.left };
+    }
+    if (!a) {
+      const cy = mr.top + mr.height / 2;
+      const p = pages.find((q) => q.el.getBoundingClientRect().bottom >= cy) || pages[pages.length - 1];
+      const r = p.el.getBoundingClientRect();
+      a = { p, fy: Math.max(0, Math.min(1, (cy - r.top) / r.height)), fx: 0.5, vy: cy - mr.top, vx: r.left + r.width / 2 - mr.left };
+    }
+    layoutPages();
+    const r = a.p.el.getBoundingClientRect();
+    programmatic = Date.now();
+    main.scrollTo({ top: main.scrollTop + (r.top + a.fy * r.height - mr.top) - a.vy,
+                    left: main.scrollLeft + (r.left + a.fx * r.width - mr.left) - a.vx, behavior: "instant" });
+  }
+  const zoom = (f) => { pageW = Math.max(300, Math.min(2400, (pageW || fitWidth()) * f)); relayout(); };
+  $("zfit").onclick = () => { pageW = null; relayout(); };
+  let rz = 0; window.addEventListener("resize", () => { clearTimeout(rz); rz = setTimeout(() => { if (!pageW) relayout(); }, 150); });
   document.addEventListener("keydown", (e) => {
     if (e.target.closest("select, input, textarea")) return;
     if (e.key === " " && e.target === document.body || e.key === " " && e.target.closest("main")) { e.preventDefault(); togglePlay(); }
