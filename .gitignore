@@ -1,3 +1,7 @@
 __pycache__/
 .venv/
 *.wav
+# reader output: only sync.json is kept (sentences, boxes, timings); rebuild the
+# rest, audio included, with reader/build_reader.py
+rounds/*/reader/*
+!rounds/*/reader/sync.json

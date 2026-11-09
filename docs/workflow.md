@@ -128,6 +128,16 @@ or publish it as a claude.ai artifact. Ratings live in the browser; export them.
 calibration), `segments.csv`, the MP3s and `index.html`. Add a line to
 `docs/voice-selection.md`.
 
+## 6. Interactive reader (alternative to tracks)
+
+When you want to read along instead of following a reading plan:
+`python3 reader/build_reader.py paper.pdf out --voices 37,2` builds a page
+with the PDF and its audio. It reads in page order, highlights the current
+sentence in the PDF, and lets you click a sentence or the timeline to jump.
+No manual script: the text comes straight from the PDF (check
+`out/sentences.txt`; edit `out/sentences.json` and build again if needed).
+Details in `reader/README.md`.
+
 ## Limitations
 
 - Synthetic voices: clear, not audiobook quality.

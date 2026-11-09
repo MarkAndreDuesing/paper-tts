@@ -7,7 +7,7 @@ can look them up. Includes a voice-testing process with rating sheets to find
 the voices you like.
 
 Runs locally with free, offline tools ([Piper](https://github.com/OHF-Voice/piper1-gpl)
-TTS, ffmpeg, pdftotext).
+TTS, ffmpeg, pdftotext; PyMuPDF for the reader).
 
 ## Quick start
 
@@ -20,6 +20,18 @@ python3 tools/clean_pdf_text.py raw.txt clean.txt
 python3 tools/tts_generate.py script.txt out --voice en_GB-alba-medium --models ~/piper-voices
 ```
 
+## Reader (prototype)
+
+`reader/` turns a paper into an interactive page: the PDF with its audio, the
+sentence being read highlighted on the page, click a sentence to jump there,
+scrub the timeline to move through the text. Plain page order, references and
+clutter skipped. See `reader/README.md`.
+
+```bash
+python3 reader/build_reader.py paper.pdf out --voices 37,2   # numbers from voices/shortlist-current.csv
+cd out && python3 -m http.server                              # open http://localhost:8000
+```
+
 ## Contents
 
 | Path | What |
@@ -29,6 +41,7 @@ python3 tools/tts_generate.py script.txt out --voice en_GB-alba-medium --models 
 | `docs/reading-guide-template.md` | Time-boxed method for reading a paper (three passes, claim → evidence → doubt); can define the track order |
 | `tools/` | `extract_pdf.sh`, `clean_pdf_text.py`, `tts_generate.py`, `calibrate_voices.py`, `refine_calibration.py`, `build_rating_sheet.py`, `requirements.txt` |
 | `tools/examples/` | Scripts that built the listening scripts of earlier rounds |
+| `reader/` | Interactive reader: PDF + audio with sentence highlighting (`build_reader.py`, `pdf_sentences.py`, `viewer.html`) |
 | `rating-sheet/template.html` | Rating sheet page used by `build_rating_sheet.py` |
 | `voices/` | All candidate voices with calibration, ratings per round, current shortlist |
 | `rounds/round-N/` | Each voice-test round: paper, script, voice list, timestamps, MP3s, rating sheet |

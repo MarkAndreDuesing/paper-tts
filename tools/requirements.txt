@@ -2,5 +2,6 @@
 piper-tts==1.8.0
 onnxruntime==1.29.0
 numpy==2.5.3
+pymupdf==2.1        # reader/ only
 # System tools (install separately): ffmpeg (6.1), poppler-utils (pdftotext, pdfinfo)
 # Tested with Python 3.13
