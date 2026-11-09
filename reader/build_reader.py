@@ -135,6 +135,13 @@ def main():
     out = Path(a.outdir)
     out.mkdir(parents=True, exist_ok=True)
     sj = out / "sentences.json"
+    sync_json = out / "sync.json"
+    if not sj.exists() and sync_json.exists() and not a.re_extract:
+        # only sync.json is kept in git: take the sentences (with any hand edits) from it
+        prev = json.loads(sync_json.read_text(encoding="utf-8"))
+        sj.write_text(json.dumps({"pages": prev["pages"], "sentences": prev["sentences"]}, ensure_ascii=False),
+                      encoding="utf-8")
+        print(f"Sentences taken from {sync_json}")
     if a.re_extract or not sj.exists():
         pages, paras, body = pdf_sentences.extract(a.pdf, a.skip_captions, a.drop_regex, keep_authors=a.keep_authors)
         sents = pdf_sentences.sentences(paras)
@@ -152,7 +159,6 @@ def main():
         shutil.copyfile(a.pdf, out / "paper.pdf")
 
     old = {}
-    sync_json = out / "sync.json"
     if sync_json.exists():
         prev = json.loads(sync_json.read_text(encoding="utf-8"))
         if prev.get("text_hash") == h:
@@ -188,7 +194,7 @@ def main():
     title = a.title or next((s["text"].rstrip(".") for s in sents if s["kind"] == "heading"), Path(a.pdf).stem)
     sync = {"title": title, "pdf": "paper.pdf", "text_hash": h, "pages": data["pages"],
             "sentences": [{"id": s["id"], "kind": s["kind"], "text": s["text"], "page": s["page"],
-                           "boxes": s["boxes"]} for s in sents],
+                           "boxes": s["boxes"], "para_end": s.get("para_end", False)} for s in sents],
             "voices": built}
     sync_json.write_text(json.dumps(sync, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
     # sync.js works without a server (file://), where fetch() of local files is blocked

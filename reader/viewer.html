@@ -129,6 +129,10 @@ kbd { font-family: var(--font-num); font-size: 11px; border: 1px solid var(--lin
 .vrow .who { min-width: 0; background: none; border: 0; text-align: left; cursor: pointer; padding: 0; }
 .vrow .who b { display: block; font-size: 14px; }
 .vrow .who span { font-size: 12px; color: var(--muted); }
+.vrow .acts { display: flex; gap: 6px; align-items: center; }
+.vrow .dl { font-size: 12px; padding: 3px 7px; }
+#toast { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); z-index: 7; max-width: min(520px, 90%);
+  background: var(--ink); color: var(--panel); border-radius: 8px; padding: 8px 12px; font-size: 13px; line-height: 1.4; box-shadow: var(--shadow); }
 .counts { font-family: var(--font-num); font-size: 12px; color: var(--muted); }
 #out { width: 100%; min-height: 120px; font-family: var(--font-num); font-size: 11px; background: var(--desk);
   color: var(--ink); border: 1px solid var(--line); border-radius: 6px; padding: 8px; resize: vertical; box-sizing: border-box; }
@@ -149,6 +153,7 @@ kbd { font-family: var(--font-num); font-size: 11px; border: 1px solid var(--lin
     <span class="rate" id="rate" role="group" aria-label="Rate this voice (keys 1, 2, 3)">
       <button data-r="bad" aria-pressed="false" title="Bad (1)">Bad</button><button data-r="medium" aria-pressed="false" title="Medium (2)">Medium</button><button data-r="good" aria-pressed="false" title="Good (3)">Good</button>
     </span>
+    <button class="btn" id="dlBtn" title="Download this voice as one MP3 for offline listening">Download</button>
     <button class="btn" id="voicesBtn" aria-expanded="false">Voices</button>
     <label class="field" for="speed">Speed <select id="speed">
       <option value="0.8">0.8×</option><option value="0.9">0.9×</option><option value="1" selected>1.0×</option>
@@ -167,9 +172,10 @@ kbd { font-family: var(--font-num); font-size: 11px; border: 1px solid var(--lin
 <div class="wrap">
   <main id="main"><div id="pages"></div></main>
   <button id="back" hidden>Back to reading position</button>
+  <div id="toast" role="status" aria-live="polite" hidden></div>
   <aside id="panel" hidden aria-label="Voices">
     <h2>Voices <button class="btn" id="closePanel">Close</button></h2>
-    <p>Rate each voice while you listen (keys 1, 2, 3 rate the current one). Ratings stay in this browser; copy them out for the voice list (<code>voices/ratings-roundN.csv</code>).</p>
+    <p>Rate each voice while you listen (keys 1, 2, 3 rate the current one). MP3 downloads that voice as one file for offline listening (in claude.ai it comes inside a .zip). Ratings stay in this browser; copy them out for the voice list (<code>voices/ratings-roundN.csv</code>).</p>
     <div class="exrow">
       <label class="field" for="vfilter">Show in the voice menu <select id="vfilter">
         <option value="all">All voices</option><option value="notbad">All but bad</option>
@@ -534,7 +540,11 @@ kbd { font-family: var(--font-num); font-size: 11px; border: 1px solid var(--lin
       ["bad", "medium", "good"].forEach((r) => { const b = document.createElement("button"); b.dataset.r = r; b.textContent = mark[r];
         b.setAttribute("aria-pressed", String(ratings[v.no] === r)); b.setAttribute("aria-label", mark[r] + ": " + v.label);
         b.onclick = () => rate(v.no, r); rt.appendChild(b); });
-      row.append(who, rt); list.appendChild(row);
+      const acts = document.createElement("span"); acts.className = "acts";
+      const dl = document.createElement("button"); dl.className = "btn dl"; dl.textContent = "MP3";
+      dl.title = "Download " + v.label + " as one MP3"; dl.onclick = () => downloadVoice(v);
+      acts.append(rt, dl);
+      row.append(who, acts); list.appendChild(row);
     });
     const c = { good: 0, medium: 0, bad: 0 }; D.voices.forEach((v) => { if (ratings[v.no]) c[ratings[v.no]]++; });
     $("vcounts").textContent = c.good + " good · " + c.medium + " medium · " + c.bad + " bad · " +
@@ -564,6 +574,83 @@ kbd { font-family: var(--font-num); font-size: 11px; border: 1px solid var(--lin
     catch (e) { ta.focus(); ta.select(); msg.textContent = "Text selected. Press Ctrl+C or ⌘C to copy."; }
   }
   $("copyCsv").onclick = () => copyOut("csv"); $("copyMd").onclick = () => copyOut("md");
+
+  // ---------- download a voice as one MP3 ----------
+  // The parts are joined into one file. Each part's ID3 tag and its "Info"
+  // header frame (which states that part's length) are dropped, so players
+  // read the length of the whole file correctly.
+  let toastT = 0;
+  function toast(msg, ms) { const t = $("toast"); t.textContent = msg; t.hidden = false; clearTimeout(toastT);
+    if (ms) toastT = setTimeout(() => { t.hidden = true; }, ms); }
+  function frameLen(b, i) {
+    if (b[i] !== 0xff || (b[i + 1] & 0xe0) !== 0xe0) return 0;
+    const ver = (b[i + 1] >> 3) & 3, layer = (b[i + 1] >> 1) & 3, bri = b[i + 2] >> 4, sri = (b[i + 2] >> 2) & 3, pad = (b[i + 2] >> 1) & 1;
+    if (layer !== 1 || bri === 0 || bri === 15 || sri === 3) return 0;          // layer III only
+    const v1 = [0, 32, 40, 48, 56, 64, 80, 96, 112, 128, 160, 192, 224, 256, 320];
+    const v2 = [0, 8, 16, 24, 32, 40, 48, 56, 64, 80, 96, 112, 128, 144, 160];
+    const sr = [[11025, 12000, 8000], null, [22050, 24000, 16000], [44100, 48000, 32000]][ver];
+    if (!sr) return 0;
+    return ver === 3 ? Math.floor(144000 * v1[bri] / sr[sri]) + pad : Math.floor(72000 * v2[bri] / sr[sri]) + pad;
+  }
+  function audioFrames(buf) {
+    const b = new Uint8Array(buf); let i = 0;
+    if (b[0] === 0x49 && b[1] === 0x44 && b[2] === 0x33)                         // "ID3" tag
+      i = 10 + ((b[6] & 127) << 21 | (b[7] & 127) << 14 | (b[8] & 127) << 7 | (b[9] & 127));
+    const n = frameLen(b, i);
+    if (n) { const head = String.fromCharCode(...b.subarray(i, i + Math.min(n, 64)));
+      if (/Xing|Info/.test(head)) i += n; }                                       // drop the per-part header frame
+    let end = b.length;
+    if (end > 128 && b[end - 128] === 0x54 && b[end - 127] === 0x41 && b[end - 126] === 0x47) end -= 128;   // ID3v1
+    return b.subarray(i, end);
+  }
+  const CRC = (() => { const t = new Uint32Array(256); for (let n = 0; n < 256; n++) { let c = n; for (let k = 0; k < 8; k++) c = c & 1 ? 0xedb88320 ^ (c >>> 1) : c >>> 1; t[n] = c >>> 0; } return t; })();
+  function crc32(chunks) { let c = 0xffffffff; for (const b of chunks) for (let i = 0; i < b.length; i++) c = CRC[(c ^ b[i]) & 255] ^ (c >>> 8); return (c ^ 0xffffffff) >>> 0; }
+  function zipOne(name, chunks) {                       // one stored (uncompressed) file in a zip
+    const nm = new TextEncoder().encode(name), size = chunks.reduce((a, b) => a + b.length, 0), crc = crc32(chunks);
+    const lh = new DataView(new ArrayBuffer(30)), ch = new DataView(new ArrayBuffer(46)), ed = new DataView(new ArrayBuffer(22));
+    [[0, 0x04034b50, 4], [4, 20, 2], [6, 0x800, 2], [8, 0, 2], [14, crc, 4], [18, size, 4], [22, size, 4], [26, nm.length, 2]]
+      .forEach(([o, v, w]) => w === 4 ? lh.setUint32(o, v, true) : lh.setUint16(o, v, true));
+    [[0, 0x02014b50, 4], [4, 20, 2], [6, 20, 2], [8, 0x800, 2], [16, crc, 4], [20, size, 4], [24, size, 4], [28, nm.length, 2], [42, 0, 4]]
+      .forEach(([o, v, w]) => w === 4 ? ch.setUint32(o, v, true) : ch.setUint16(o, v, true));
+    const cdOff = 30 + nm.length + size;
+    [[0, 0x06054b50, 4], [8, 1, 2], [10, 1, 2], [12, 46 + nm.length, 4], [16, cdOff, 4]]
+      .forEach(([o, v, w]) => w === 4 ? ed.setUint32(o, v, true) : ed.setUint16(o, v, true));
+    return new Blob([lh, nm, ...chunks, ch, nm, ed]);
+  }
+  const safeName = (t) => t.replace(/[\\/:*?"<>|]+/g, " ").replace(/\s+/g, " ").trim().slice(0, 80);
+  let downloading = false;
+  async function downloadVoice(v) {
+    if (downloading) return; downloading = true;
+    const base = safeName(D.title) + " - " + safeName(v.label.replace(/ \(.*\)$/, "").replace(" · ", " "));
+    try {
+      const chunks = [];
+      for (let i = 0; i < v.parts.length; i++) {
+        toast("Preparing " + v.label.replace(/ \(.*\)$/, "") + ": part " + (i + 1) + " of " + v.parts.length + " …");
+        const r = await fetch(v.parts[i].file); if (!r.ok) throw new Error("part " + (i + 1) + " not found");
+        chunks.push(audioFrames(await r.arrayBuffer()));
+      }
+      const api = window.claude && window.claude.use ? await window.claude.use("downloads") : null;
+      if (api) {
+        // inside claude.ai only some file types may be saved; mp3 is not one, so it comes zipped
+        toast("Packing …");
+        await api.save({ filename: base + ".zip", data: zipOne(base + ".mp3", chunks) });
+        toast("Saved " + base + ".zip (one MP3 inside).", 5000);
+      } else if (window.claude && window.claude.use) {
+        toast("Downloads are not available in this view.", 5000);
+      } else {
+        const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob(chunks, { type: "audio/mpeg" }));
+        a.download = base + ".mp3"; document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(() => URL.revokeObjectURL(a.href), 60000);
+        toast("Downloaded " + base + ".mp3", 5000);
+      }
+    } catch (e) {
+      const code = e && e.code;
+      toast(code === "declined" ? "Download cancelled." : code === "rate_limited" ? "Another save is waiting for your answer. Try again in a moment."
+        : "Download failed: " + (e && e.message || e), 6000);
+    }
+    downloading = false;
+  }
+  $("dlBtn").onclick = () => downloadVoice(voice);
   $("vfilter").onchange = () => { store.set("reader-vfilter", $("vfilter").value); fillVoiceMenu(); };
   const togglePanel = (open) => { $("panel").hidden = !open; $("voicesBtn").setAttribute("aria-expanded", String(open)); if (open) fillPanel(); };
   $("voicesBtn").onclick = () => togglePanel($("panel").hidden);
