@@ -32,6 +32,8 @@ voices, listed with sex, approximate accent and calibration in
 | 4 | Hermann et al. 2020, 12 pp. | 28 | ~2.4 min | skipped, no ratings |
 | 5 | Olszewski et al. 2023, 27 pp. | 22, mixed order, 3 s pauses | ~2.7 min | 0 good, 15 medium, 7 bad → 15 kept (`ratings-round5.csv`) |
 | 6 | Winter et al. 2022, 12 pp. | 15 (regenerated after round 5), mixed order, 3 s pauses | ~3.9 min | 0 good, 14 medium, 1 bad (vctk p284) → 14 kept (`ratings-round6.csv`) |
+| 7 | Broneske et al. 2024, 24 pp. | 14, mixed order, 3 s pauses | ~4.5 min | open |
+| 8 | Guevara-Vega et al. 2024, 16 pp. | 14, mixed order, 3 s pauses | ~4.2 min | open |
 
 Round 1 used the first, word-count based split (some voices got only a few
 seconds); from round 2 snippets are balanced by speaking time.

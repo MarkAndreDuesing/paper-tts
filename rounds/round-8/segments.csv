@@ -1,0 +1,20 @@
+voice_no,model,speaker,track,start,end,first_words,chars
+37,en_GB-vctk-medium,p240,guevara-01-survey,0.0,243.9,"Guevara-Vega, Bernárdez, Cruz, Durán, Ruiz-Cortés and Solari, twenty",4450
+43,en_GB-vctk-medium,p247,guevara-01-survey,246.9,495.0,"As UNESCO (United Nations Educational, Scientific and Cultural",4535
+76,en_GB-vctk-medium,p280,guevara-01-survey,498.0,742.4,"What are the publication trends of research artifacts,",4472
+2,en_GB-alba-medium,,guevara-01-survey,745.4,874.3,"Nevertheless, the research artifacts reviewed during the survey",2311
+2,en_GB-alba-medium,,guevara-02-background,0.0,129.6,"Track two: section two, background, pages 3 to",2320
+48,en_GB-vctk-medium,p252,guevara-02-background,132.6,370.0,"Then, an expert committee reviews research artifacts and",4333
+65,en_GB-vctk-medium,p269,guevara-02-background,373.0,624.6,"These guidelines include suggestions such as first, an",4604
+51,en_GB-vctk-medium,p255,guevara-02-background,627.6,813.4,Operational.,3344
+51,en_GB-vctk-medium,p255,guevara-03-method,0.0,64.9,"Track three: section three, the survey method, pages",1185
+72,en_GB-vctk-medium,p276,guevara-03-method,67.9,210.7,Two point two: what is the level of,2355
+72,en_GB-vctk-medium,p276,guevara-04-results,0.0,132.8,"Track four: section four, results, pages 6 to",2225
+56,en_GB-vctk-medium,p260,guevara-04-results,135.8,392.4,"As a result, in the paper, the authors",4637
+52,en_GB-vctk-medium,p256,guevara-04-results,395.4,646.8,"Figure 5, on page 7, shows these repositories",4496
+4,en_GB-jenny_dioco-medium,,guevara-04-results,649.8,819.5,"As seen in Figure 6, within the set",3109
+4,en_GB-jenny_dioco-medium,,guevara-05-proposal-and-validation,0.0,79.2,"Track five: section five, the proposed research artifact",1407
+88,en_GB-vctk-medium,p298,guevara-05-proposal-and-validation,82.2,332.3,"In Table 6, the optionality character of the",4525
+94,en_GB-vctk-medium,p313,guevara-05-proposal-and-validation,335.3,591.8,"Consequently in our proposal, A, B, and G",4675
+104,en_GB-vctk-medium,p347,guevara-05-proposal-and-validation,594.8,616.8,"Moreover, each item encompassed within the analyzed research",364
+104,en_GB-vctk-medium,p347,guevara-06-threats,0.0,224.4,"Track six: section six, threats to validity, page",4099

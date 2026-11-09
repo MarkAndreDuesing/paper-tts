@@ -1,0 +1,20 @@
+voice_no,model,speaker,track,start,end,first_words,chars
+37,en_GB-vctk-medium,p240,broneske-01-survey,0.0,265.8,"Broneske, Kittan and Krüger, twenty twenty-four.",4873
+43,en_GB-vctk-medium,p247,broneske-01-survey,268.8,539.0,A primary example for such data is version-control,4931
+76,en_GB-vctk-medium,p280,broneske-01-survey,542.0,725.9,"Overall, we hope that our contributions help the",3264
+76,en_GB-vctk-medium,p280,broneske-02-method,0.0,100.4,"Track two: section two, methodology, pages 3 to",1713
+2,en_GB-alba-medium,,broneske-02-method,103.4,370.5,Our goal in this paper is to shed,4836
+48,en_GB-vctk-medium,p252,broneske-02-method,373.5,638.9,We elicited papers fulfilling criterion 2 point 3,4825
+65,en_GB-vctk-medium,p269,broneske-02-method,641.9,910.9,We then checked whether these 324 papers fulfilled,4943
+51,en_GB-vctk-medium,p255,broneske-02-method,913.9,1023.7,Please note that we refrained from collecting and,2053
+51,en_GB-vctk-medium,p255,broneske-03-sharing-practices,0.0,162.5,"Track three: section three, research objective one, sharing",2803
+72,en_GB-vctk-medium,p276,broneske-03-sharing-practices,165.5,443.8,As the first property of each S E,4784
+56,en_GB-vctk-medium,p260,broneske-03-sharing-practices,446.8,620.6,"Interestingly, human(-centered) aspects are mentioned and researched fewer",3254
+56,en_GB-vctk-medium,p260,broneske-04-problems,0.0,93.4,"Track four: section four point one, research objective",1663
+52,en_GB-vctk-medium,p256,broneske-04-problems,96.4,363.5,Please see the PDF for the table.,4899
+4,en_GB-jenny_dioco-medium,,broneske-04-problems,366.5,613.4,"Particularly, the typical concern of toy and example",4531
+4,en_GB-jenny_dioco-medium,,broneske-05-recommendations-and-threats,0.0,19.3,"Track five: section four point two, recommendations, and",334
+88,en_GB-vctk-medium,p298,broneske-05-recommendations-and-threats,22.3,286.0,We refined and enriched these recommendations based on,4826
+94,en_GB-vctk-medium,p313,broneske-05-recommendations-and-threats,289.0,473.4,"Those could incorporate means for ensuring data privacy,",3409
+94,en_GB-vctk-medium,p313,broneske-06-related-work,0.0,77.4,"Track six: section six, related work, pages 18",1375
+104,en_GB-vctk-medium,p347,broneske-06-related-work,80.4,348.5,"Table 8, on page 19, compares the related",4871
