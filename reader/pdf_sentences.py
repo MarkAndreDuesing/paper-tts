@@ -41,6 +41,8 @@ DROP_BLOCKS = [
 ]
 STOP_HEADINGS = re.compile(r"^(\d+\.?\s*)?(references|bibliography|acknowledge?ments?|works cited)\b", re.I)
 RESUME_HEADINGS = re.compile(r"^([A-Z]\.?\s+|\d+\.?\s*)?appendi(x|ces)\b|^[A-Z](\.\d+)*\.?\s+[A-Z]", re.I)
+# journal / proceedings names printed above the title
+VENUE = re.compile(r"^(the )?(journal of|proceedings of|ieee transactions|acm transactions|transactions on)\b", re.I)
 CAPTION = re.compile(r"^(Fig\.?|Figure|Table|Listing|Algorithm|Box)\s*\d+[.:]", re.I)
 
 # words that do not end a sentence even when followed by a capital
@@ -308,6 +310,8 @@ def extract(pdf, skip_captions=False, drop_regex=(), min_size_diff=1.3, keep_aut
             stream[-1]["lines"] += b["lines"]
             stream[-1]["bbox"] = bbox_of(stream[-1]["lines"])
             block_stats(stream[-1])
+            continue
+        if kind == "heading" and VENUE.match(drop_key(b["text"])) and b["page"] == 1:
             continue
         if kind == "heading":
             if STOP_HEADINGS.match(b["text"]):
